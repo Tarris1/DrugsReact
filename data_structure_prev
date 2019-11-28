@@ -1,0 +1,43 @@
+[
+            {
+               "id":1,
+               "brand":"Rinvoq",
+               "generic":"upadacitinib",
+			   "category":"JAK1 inhibitor",
+				"firm": "AbbVie"
+			   
+            },
+            {
+               "id":2,
+               "brand":"GLPG-0634",
+               "generic":"filgotinib",
+			   "category":"JAK1 inhibitor",
+			   "firm": "Galapagos, Gilead"
+            },
+            {
+               "id":3,
+               "brand":"Xeljanz",
+               "generic":"tofacitinib",
+			   "category":"JAK1/3 inhibitor",
+			   "firm": "Pfizer"
+            }
+         ]
+		 
+		 
+var list_of_drugs = [];
+for (var i = 1; i < Object.keys(data['drugs']).length; i++) {
+	var z = i.toString()
+	if (z in data['drugs']){//drugs){
+		//console.log(i)
+		var dict = {
+		"id":z,
+		"brand":data['drugs'][z]['name'],
+		"category":data['drugs'][z]['category'],
+		"firm":data['drugs'][z]['misc'],
+		"indications":data['drugs'][z]['disease']
+	};
+	list_of_drugs.push(dict);
+	}
+	
+	
+}
