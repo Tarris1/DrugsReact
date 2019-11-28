@@ -39,7 +39,7 @@ class App extends React.Component {
 		 i: n,
 		 search: "",
 		 hideDatabase: "Hide database",
-		 saveName: ""
+		 saveName: "",
       }
 	  
 	  this.searchResults = this.searchResults.bind(this);
@@ -127,21 +127,91 @@ class App extends React.Component {
 					<td >Firms</td>
 				</tr>
 	
-                  {this.state.data.map((person, i) => <TableRow key = {i} 
+                  {this.state.data.map((person, i) => <DrugTableRow key = {i} 
                      data = {person} />)}
                </tbody>
 			   
             </table>
+               
          </div>
       );
    }
 }
 
+class DrugTable extends React.Component {
+	render() {
+		return (
+		
+			<tbody>
+			   
+			   <tr> 
+					<td >#</td>
+					<td ><button onClick = {this.hideTable}>{"Names"}</button></td>
+					<td >Indications</td>
+					<td >Category</td>
+					<td >Firms</td>
+				</tr>
+	
+                  {this.state.data.map((person, i) => <DrugTableRow key = {i} 
+                     data = {person} />)}
+			</tbody>
+		
+		
+		)
+		
+	}
+		
+}
+
+class Blog extends React.Component {
+	render() {
+		return (
+		
+			<div>
+					<div>
+					<h1>Welcome to my blog</h1>
+					<p>I intend to analyze whatever I see fit in the biotech field on a weekly or semi-weekly basis.</p>
+					</div>
+					
+					<div>
+					
+					{this.state.blogs.map((blog, id) => <BlogEntry key = {_id} 
+                     text = {_blogs.text} 
+					 author = {_blogs.author}
+					 date = {_blogs.date}
+					 title = {_blogs.title}
+					 />)}
+					
+					</div>
+			</div>
+			
+			
+		)
+	}
+}
+//https://dev.to/zeyadetman/how-to-pass-state-between-components-in-reactjs-2pg1
+
+class BlogEntry extends React.Component {
+	//Creates each blog entry
+	render() {
+		return (
+			<table>
+				<tr id = "title_field"> {this.props.title}</tr>
+				<tr id = "text_field"> {this.props.text}</tr>
+				<tr id = "author_field">{"Author: "+this.props.author}</tr>
+				<tr id = "date_field">{"Date: "+this.props.date}</tr>
+			</table>
+		
+		)
+		
+	}
+	
+	
+	
+}
 
 
-
-
-class TableRow extends React.Component {
+class DrugTableRow extends React.Component {
    render() {
       return (
          <tr>
