@@ -1,3 +1,10 @@
 table#drugTable {  
-  background-color: #f1f1c1;
+  background-color: white;
+  border: 0.5px solid black;
+}
+
+td {
+	
+	border-collapse: collapse;
+	
 }

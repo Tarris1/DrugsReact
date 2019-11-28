@@ -7,26 +7,6 @@ let data = require('../database.json');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 var fileSaver = require('file-saver'); 
 
-const styles = {
-	//Fix the .css issue later...
-	tableStyle : {
-		backgroundColor: "white",
-		color : "black",
-		border: "1px solid black",
-		borderCollapse: "collapse",
-		fontSize : "15px",
-		fontFamily: "arial",//"sans-serif",
-		//borderCollapse: 'collapse'
-		
-	},
-	
-	td:
-	{
-		border: '1px solid black'
-	}
-};
-
-
 
 function transferToDict(id) {
 	var dictionary = data['drugs'][id];
@@ -136,10 +116,10 @@ class App extends React.Component {
 			</table>
 			
 			
-            <table id = "drugTable" style = {styles.tableStyle}>
+            <table id = "drugTable" >
                <tbody>
 			   
-			   <tr style = {styles.td}> 
+			   <tr> 
 					<td >#</td>
 					<td ><button onClick = {this.hideTable}>{"Names ("+this.state.hideDatabase+")"}</button></td>
 					<td >Indications</td>
@@ -158,16 +138,19 @@ class App extends React.Component {
 }
 
 
+
+
+
 class TableRow extends React.Component {
    render() {
       return (
-         <tr style = {styles.td}>
+         <tr>
             <td >{this.props.data.id}</td>
             <td >{this.props.data.names}</td>
             <td >{this.props.data.indications}</td>
 			<td >{this.props.data.category}</td>
 			<td >{this.props.data.firm}</td>
-         </tr>
+        </tr>	
       );
    }
 }
