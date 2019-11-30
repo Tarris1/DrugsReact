@@ -1,9 +1,7 @@
 import React from 'react';
 
-//import database from './database.json';
-//import database from 'json!../database.json';
-//const style = require('./index.css');
 let data = require('../database.json');
+let blogs = require('./blogs.json');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 var fileSaver = require('file-saver'); 
 
@@ -33,13 +31,14 @@ class App extends React.Component {
    constructor() {
       super();
       this.state = { //State is the place where data comes from - make as simple as possible
-         data: listOfDrugs,
-		 header: 'My Drug Database',
-		 paragraph: paragraphs,
-		 i: n,
-		 search: "",
-		 hideDatabase: "Hide database",
-		 saveName: "",
+		data: listOfDrugs,
+		header: 'My Drug Database',
+		paragraph: paragraphs,
+		i: n,
+		search: "",
+		hideDatabase: "Hide database",
+		saveName: "",
+		blogs: blogs,
       }
 	  
 	  this.searchResults = this.searchResults.bind(this);
@@ -95,19 +94,19 @@ class App extends React.Component {
    	render() {
       	return (
          	<div>
-            	<div>
+				<div>{this.state.blogs.map((blog, i) => <BlogEntry key = {i} data= {blog}/>)}</div>
+
+				<div>
 				<h1>{this.state.header}</h1>
 				<p>{this.state.paragraph.introduction}</p>
 				</div>
 				<table>
 					<tbody>
-						
 						<tr>
 							<td><label>Search: <input type="text" name = "search" value = {this.state.search} onChange = {this.searchResults}/></label></td>
 							<td><label>Save data as: <input type="text" name = "saveData" value = {this.state.saveName} onChange = {this.changeSaveDataName}/></label></td>
 							<td><button onClick = {this.saveData}>Click to save</button></td>
 						</tr>
-				
 					</tbody>
 				</table>
 			
@@ -146,7 +145,7 @@ class DrugTable extends React.Component {
 					<td>Firms</td>
 				</tr>
 	
-                  {this.state.data.map((person, i) => <DrugTableRow key = {i} data = {person} />)}
+				{this.state.data.map((person, i) => <DrugTableRow key = {i} data = {person} />)}
 			</tbody>
 		)
 		
@@ -169,8 +168,6 @@ class Blog extends React.Component {
 					
 				</div>
 			</div>
-			
-			
 		)
 	}
 }
@@ -181,10 +178,12 @@ class BlogEntry extends React.Component {
 	render() {
 		return (
 			<table>
-				<tr id = "title_field"> {this.props.data.title}</tr>
-				<tr id = "text_field"> {this.props.data.text}</tr>
-				<tr id = "author_field">{"Author: "+this.props.data.author}</tr>
-				<tr id = "date_field">{"Date: "+this.props.data.date}</tr>
+				<tbody>
+					<tr id = "title_field">{"Title: "+this.props.data.title}</tr>
+					<tr id = "text_field">{this.props.data.text}</tr>
+					<tr id = "author_field">{"Author: "+this.props.data.author}</tr>
+					<tr id = "date_field">{"Date: "+this.props.data.date}</tr>
+				</tbody>
 			</table>
 		);
 	}	
