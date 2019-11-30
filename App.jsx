@@ -96,7 +96,7 @@ class App extends React.Component {
       	return (
          	<div>
             	<div>
-            	<h1>{this.state.header}</h1>
+				<h1>{this.state.header}</h1>
 				<p>{this.state.paragraph.introduction}</p>
 				</div>
 				<table>
@@ -116,12 +116,12 @@ class App extends React.Component {
 				<tbody>
 				
 				<tr> 
-						<td>#</td>
-						<td><button onClick = {this.hideTable}>{"Names ("+this.state.hideDatabase+")"}</button></td>
-						<td>Indications</td>
-						<td>Category</td>
-						<td>Firms</td>
-					</tr>
+					<td>#</td>
+					<td><button onClick = {this.hideTable}>{"Names ("+this.state.hideDatabase+")"}</button></td>
+					<td>Indications</td>
+					<td>Category</td>
+					<td>Firms</td>
+				</tr>
 		
 					{this.state.data.map((drug, i) => <DrugTableRow key = {i} data = {drug} />)}
 
@@ -137,10 +137,8 @@ class App extends React.Component {
 class DrugTable extends React.Component {
 	render() {
 		return (
-		
 			<tbody>
-			   
-			   <tr> 
+			   	<tr> 
 					<td>#</td>
 					<td><button onClick = {this.hideTable}>{"Names"}</button></td>
 					<td>Indications</td>
@@ -150,8 +148,6 @@ class DrugTable extends React.Component {
 	
                   {this.state.data.map((person, i) => <DrugTableRow key = {i} data = {person} />)}
 			</tbody>
-		
-		
 		)
 		
 	}
@@ -161,18 +157,17 @@ class DrugTable extends React.Component {
 class Blog extends React.Component {
 	render() {
 		return (
-		
 			<div>
-					<div>
+				<div>
 					<h1>Welcome to my blog</h1>
 					<p>Introduction</p>
-					</div>
+				</div>
 					
-					<div>
+				<div>
 					
 					{this.state.blogs.map((blog, id) => <BlogEntry key = {id} data = {blog}/>)}
 					
-					</div>
+				</div>
 			</div>
 			
 			
@@ -192,7 +187,6 @@ class BlogEntry extends React.Component {
 				<tr id = "date_field">{"Date: "+this.props.data.date}</tr>
 			</table>
 		);
-		
 	}	
 }
 
@@ -200,10 +194,10 @@ class BlogEntry extends React.Component {
 class DrugTableRow extends React.Component {
    render() {
       return (
-         <tr>
-            <td> {this.props.data.id}</td>
-            <td> {this.props.data.names}</td>
-            <td> {this.props.data.indications}</td>
+        <tr>
+			<td> {this.props.data.id}</td>
+			<td> {this.props.data.names}</td>
+			<td> {this.props.data.indications}</td>
 			<td> {this.props.data.category}</td>
 			<td> {this.props.data.firm}</td>
         </tr>	
