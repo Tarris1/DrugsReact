@@ -78,60 +78,60 @@ class App extends React.Component {
 		} else {this.setState({data:[], hideDatabase:"Unhide database"})}
 	}
 	
-	saveData(event){ //Saves the data with the name determined by this.state.saveName in the label, maybe save with the name of search or a generic name if no search input
-		var blob = new Blob([JSON.stringify(this.state.data)], {type: "octet/stream"});
+	//https://javascript.info/blob
+	saveData(event){ //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
+		var blob = new Blob([JSON.stringify(this.state.data)], {type: "application/json"});
 		const saveToName = this.state.saveName;
 		const searchName = this.state.search;
-		//Add an if function that checks if file exists in cwd or not, show error if it exists
-		if (saveToName.length>0 && searchName.length>0){
+		if (saveToName.length > 0 && searchName.length > 0){
 			fileSaver.saveAs(blob, saveToName+".json")
-		} else if (saveToName.length==0) 
+		} else if (saveToName.length == 0 && searchName.length > 0) 
 			{fileSaver.saveAs(blob, searchName+".json")}
-			else {fileSaver.saveAs(blog, "na.json")};
+			else {fileSaver.saveAs(blob, "drugTable.json")};
 	}
 	
 	changeSaveDataName(event){this.setState({saveName:event.target.value})} //Changes the save data label - fix so that it works for any label
 	
-   render() {
-      return (
-         <div>
-            <div>
-            <h1>{this.state.header}</h1>
-			<p>{this.state.paragraph.introduction}</p>
-			</div>
-			<table>
+   	render() {
+      	return (
+         	<div>
+            	<div>
+            	<h1>{this.state.header}</h1>
+				<p>{this.state.paragraph.introduction}</p>
+				</div>
+				<table>
+					<tbody>
+						
+						<tr>
+							<td><label>Search: <input type="text" name = "search" value = {this.state.search} onChange = {this.searchResults}/></label></td>
+							<td><label>Save data as: <input type="text" name = "saveData" value = {this.state.saveName} onChange = {this.changeSaveDataName}/></label></td>
+							<td><button onClick = {this.saveData}>Click to save</button></td>
+						</tr>
+				
+					</tbody>
+				</table>
+			
+			
+				<table id = "drugTable" >
 				<tbody>
-					
-					<tr>
-						<td><label>Search: <input type="text" name = "search" value = {this.state.search} onChange = {this.searchResults}/></label></td>
-						<td><label>Save data as: <input type="text" name = "saveData" value = {this.state.saveName} onChange = {this.changeSaveDataName}/></label></td>
-						<td><button onClick = {this.saveData}>Click to save</button></td>
+				
+				<tr> 
+						<td>#</td>
+						<td><button onClick = {this.hideTable}>{"Names ("+this.state.hideDatabase+")"}</button></td>
+						<td>Indications</td>
+						<td>Category</td>
+						<td>Firms</td>
 					</tr>
-			
+		
+					{this.state.data.map((drug, i) => <DrugTableRow key = {i} data = {drug} />)}
+
 				</tbody>
-			</table>
-			
-			
-            <table id = "drugTable" >
-               <tbody>
-			   
-			   <tr> 
-					<td >#</td>
-					<td ><button onClick = {this.hideTable}>{"Names ("+this.state.hideDatabase+")"}</button></td>
-					<td >Indications</td>
-					<td >Category</td>
-					<td >Firms</td>
-				</tr>
-	
-                  {this.state.data.map((person, i) => <DrugTableRow key = {i} 
-                     data = {person} />)}
-               </tbody>
-			   
-            </table>
-               
-         </div>
-      );
-   }
+				
+				</table>
+				
+			</div>
+		);
+	}
 }
 
 class DrugTable extends React.Component {
@@ -141,15 +141,14 @@ class DrugTable extends React.Component {
 			<tbody>
 			   
 			   <tr> 
-					<td >#</td>
-					<td ><button onClick = {this.hideTable}>{"Names"}</button></td>
-					<td >Indications</td>
-					<td >Category</td>
-					<td >Firms</td>
+					<td>#</td>
+					<td><button onClick = {this.hideTable}>{"Names"}</button></td>
+					<td>Indications</td>
+					<td>Category</td>
+					<td>Firms</td>
 				</tr>
 	
-                  {this.state.data.map((person, i) => <DrugTableRow key = {i} 
-                     data = {person} />)}
+                  {this.state.data.map((person, i) => <DrugTableRow key = {i} data = {person} />)}
 			</tbody>
 		
 		
@@ -166,17 +165,12 @@ class Blog extends React.Component {
 			<div>
 					<div>
 					<h1>Welcome to my blog</h1>
-					<p>I intend to analyze whatever I see fit in the biotech field on a weekly or semi-weekly basis.</p>
+					<p>Introduction</p>
 					</div>
 					
 					<div>
 					
-					{this.state.blogs.map((blog, id) => <BlogEntry key = {_id} 
-                     text = {_blogs.text} 
-					 author = {_blogs.author}
-					 date = {_blogs.date}
-					 title = {_blogs.title}
-					 />)}
+					{this.state.blogs.map((blog, id) => <BlogEntry key = {id} data = {blog}/>)}
 					
 					</div>
 			</div>
@@ -192,18 +186,14 @@ class BlogEntry extends React.Component {
 	render() {
 		return (
 			<table>
-				<tr id = "title_field"> {this.props.title}</tr>
-				<tr id = "text_field"> {this.props.text}</tr>
-				<tr id = "author_field">{"Author: "+this.props.author}</tr>
-				<tr id = "date_field">{"Date: "+this.props.date}</tr>
+				<tr id = "title_field"> {this.props.data.title}</tr>
+				<tr id = "text_field"> {this.props.data.text}</tr>
+				<tr id = "author_field">{"Author: "+this.props.data.author}</tr>
+				<tr id = "date_field">{"Date: "+this.props.data.date}</tr>
 			</table>
+		);
 		
-		)
-		
-	}
-	
-	
-	
+	}	
 }
 
 
