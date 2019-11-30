@@ -6,3 +6,11 @@ table#drugTable {
 td {
   border-collapse: collapse;
 }
+
+#drugTableWindow{
+  display:visibility;
+}
+
+#blogWindow {
+  display:visibility;
+}

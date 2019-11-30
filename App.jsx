@@ -39,11 +39,13 @@ class App extends React.Component {
 		hideDatabase: "Hide database",
 		saveName: "",
 		blogs: blogs,
+		window: {drugTableWindow: "Hide drugTableWindow", blogWindow: "Hide blogWindow"},
       }
 	  this.hideTable = this.hideTable.bind(this);
 	  this.searchResults = this.searchResults.bind(this);
 	  this.changeSaveDataName = this.changeSaveDataName.bind(this);
 	  this.saveData = this.saveData.bind(this);
+	  this.showElement = this.showElement.bind(this);
    };
    
 
@@ -92,15 +94,34 @@ class App extends React.Component {
 		} else {this.setState({data:[], hideDatabase:"Unhide database"})}
 	}
 
+	showElement(event){
+		var newState = this.state.window;
+		var nameOfElement = event.target.name;
+		if (this.state.window[nameOfElement] == "Hide "+ nameOfElement){
+			newState[nameOfElement] = "Show "+ nameOfElement;
+			document.getElementById(nameOfElement).style.display = 'inline';//.visibility = 'hidden';
+			this.setState({window:newState});
+		} else if (this.state.window[nameOfElement] == ("Show "+ nameOfElement)) {
+			newState[nameOfElement] = "Hide "+ nameOfElement;
+			document.getElementById(nameOfElement).style.display = 'none';//.visibility = 'visible';
+			this.setState({window:newState});
+		}
+	}
+
    	render() {
       	return (
          	<div>
-				{<Blog data = {this.state.blogs} hideTable = {this.hideTable}></Blog>}
-
 				<div>
+					<button name = "drugTableWindow" onClick = {this.showElement}>{this.state.window.drugTableWindow}</button>
+					<button name = "blogWindow" onClick = {this.showElement}>{this.state.window.blogWindow}</button>
+					</div> 
+				<div id = "blogWindow">
+				{<Blog data = {this.state.blogs} hideTable = {this.hideTable}></Blog>}</div>
+
+				<div id = "drugTableWindow">
 				<h1>{this.state.header}</h1>
 				<p>{this.state.paragraph.introduction}</p>
-				</div>
+				
 				<table>
 					<tbody>
 						<tr><td><button onClick = {this.hideTable}>{this.state.hideDatabase}</button></td></tr>
@@ -117,7 +138,7 @@ class App extends React.Component {
 
 					{<DrugTable data = {this.state} hideTable = {this.hideTable}></DrugTable>}
 				</table>
-				
+				</div>
 			</div>
 		);
 	}
