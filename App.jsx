@@ -40,9 +40,8 @@ class App extends React.Component {
 		saveName: "",
 		blogs: blogs,
       }
-	  
-	  this.searchResults = this.searchResults.bind(this);
 	  this.hideTable = this.hideTable.bind(this);
+	  this.searchResults = this.searchResults.bind(this);
 	  this.changeSaveDataName = this.changeSaveDataName.bind(this);
 	  this.saveData = this.saveData.bind(this);
    };
@@ -69,13 +68,8 @@ class App extends React.Component {
 	   
    }
 	
+   
 
-	
-	hideTable(event){ //Hides the table
-		if(this.state.hideDatabase == "Unhide database") {
-			this.setState({data:listOfDrugs, hideDatabase:"Hide database"})
-		} else {this.setState({data:[], hideDatabase:"Unhide database"})}
-	}
 	
 	//https://javascript.info/blob
 	saveData(event){ //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
@@ -91,14 +85,17 @@ class App extends React.Component {
 	
 	changeSaveDataName(event){this.setState({saveName:event.target.value})} //Changes the save data label - fix so that it works for any label
 	
+	hideTable(event){ //Hides the table
+		console.log(this.state.hideDatabase);
+		if(this.state.hideDatabase == "Unhide database") {
+			this.setState({data:listOfDrugs, hideDatabase:"Hide database"})
+		} else {this.setState({data:[], hideDatabase:"Unhide database"})}
+	}
+
    	render() {
       	return (
          	<div>
-				<div>
-					<h1>Welcome to my blog</h1>
-					<p>Introduction</p>
-					{this.state.blogs.map((blog, i) => <BlogEntry key = {i} data= {blog}/>)}
-				</div>
+				{<Blog data = {this.state.blogs} hideTable = {this.hideTable}></Blog>}
 
 				<div>
 				<h1>{this.state.header}</h1>
@@ -106,6 +103,7 @@ class App extends React.Component {
 				</div>
 				<table>
 					<tbody>
+						<tr><td><button onClick = {this.hideTable}>{this.state.hideDatabase}</button></td></tr>
 						<tr>
 							<td><label>Search: <input type="text" name = "search" value = {this.state.search} onChange = {this.searchResults}/></label></td>
 							<td><label>Save data as: <input type="text" name = "saveData" value = {this.state.saveName} onChange = {this.changeSaveDataName}/></label></td>
@@ -116,20 +114,8 @@ class App extends React.Component {
 			
 			
 				<table id = "drugTable" >
-				<tbody>
-				
-				<tr> 
-					<td>#</td>
-					<td><button onClick = {this.hideTable}>{"Names ("+this.state.hideDatabase+")"}</button></td>
-					<td>Indications</td>
-					<td>Category</td>
-					<td>Firms</td>
-				</tr>
-		
-					{this.state.data.map((drug, i) => <DrugTableRow key = {i} data = {drug} />)}
 
-				</tbody>
-				
+					{<DrugTable data = {this.state} hideTable = {this.hideTable}></DrugTable>}
 				</table>
 				
 			</div>
@@ -137,41 +123,16 @@ class App extends React.Component {
 	}
 }
 
-class DrugTable extends React.Component {
-	render() {
-		return (
-			<tbody>
-			   	<tr> 
-					<td>#</td>
-					<td><button onClick = {this.hideTable}>{"Names"}</button></td>
-					<td>Indications</td>
-					<td>Category</td>
-					<td>Firms</td>
-				</tr>
-	
-				{this.state.data.map((person, i) => <DrugTableRow key = {i} data = {person} />)}
-			</tbody>
-		)
-		
-	}
-		
-}
+
 
 class Blog extends React.Component {
 	render() {
 		return (
 			<div>
-				<div>
-					<h1>Welcome to my blog</h1>
-					<p>Introduction</p>
-				</div>
-					
-				<div>
-					
-					{this.state.blogs.map((blog, id) => <BlogEntry key = {id} data = {blog}/>)}
-					
-				</div>
-			</div>
+				<h1>Welcome to my blog</h1>
+				<p>Introduction</p>
+				
+				{this.props.data.map((blog, i) => <BlogEntry key = {i} data= {blog}/>)}</div>
 		)
 	}
 }
@@ -193,6 +154,36 @@ class BlogEntry extends React.Component {
 	}	
 }
 
+
+class DrugTable extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { 
+		  
+		}
+		//this.updateDatabase = this.updateDatabase.bind(this);
+	}
+
+	//updateDatabase(){this.props.hideTable};
+
+	render() {
+		return (
+			<tbody>
+			   	<tr> 
+					<td>#</td>
+					<td>Names</td>
+					<td>Indications</td>
+					<td>Category</td>
+					<td>Firms</td>
+				</tr>
+	
+				{this.props.data.data.map((drug, i) => <DrugTableRow key = {i} data = {drug} />)}
+			</tbody>
+
+		)
+	}
+
+}
 
 class DrugTableRow extends React.Component {
    render() {
