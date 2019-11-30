@@ -94,7 +94,11 @@ class App extends React.Component {
    	render() {
       	return (
          	<div>
-				<div>{this.state.blogs.map((blog, i) => <BlogEntry key = {i} data= {blog}/>)}</div>
+				<div>
+					<h1>Welcome to my blog</h1>
+					<p>Introduction</p>
+					{this.state.blogs.map((blog, i) => <BlogEntry key = {i} data= {blog}/>)}
+				</div>
 
 				<div>
 				<h1>{this.state.header}</h1>
