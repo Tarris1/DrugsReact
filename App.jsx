@@ -120,6 +120,9 @@ class App extends React.Component {
          	<div>
 				<div>
 					<button name = "drugTableWindow" id = "drugTableBtn" onClick = {this.showElement}>Drug Table</button>
+					<button name = "companyWindow" id = "companyBtn">Companies</button>
+					<button name = "diseaseWindow" id = "diseaseBtn">Diseases & Indicated Drugs</button>
+					<button name = "databankWindow" id = "databankBtn">Databank</button>
 					<button name = "blogWindow" id = "blogBtn" onClick = {this.showElement}>My Blog</button>
 				</div> 
 				<div id = "blogWindow">
@@ -174,6 +177,7 @@ class DrugTable extends React.Component {
 					<td>Indications</td>
 					<td>Category</td>
 					<td>Firms</td>
+					<td>Trials</td>
 				</tr>
 	
 				{this.props.data.data.map((drug, i) => <DrugTableRow key = {i} data = {drug} />)}
@@ -185,17 +189,18 @@ class DrugTable extends React.Component {
 }
 
 class DrugTableRow extends React.Component {
-   render() {
-      return (
-        <tr>
-			<td> {this.props.data.id}</td>
-			<td> {this.props.data.names}</td>
-			<td> {this.props.data.indications}</td>
-			<td> {this.props.data.category}</td>
-			<td> {this.props.data.firm}</td>
-        </tr>	
-      );
-   }
+	render() {
+		return (
+			<tr>
+				<td> {this.props.data.id}</td>
+				<td> {this.props.data.names}</td>
+				<td> {this.props.data.indications}</td>
+				<td> {this.props.data.category}</td>
+				<td> {this.props.data.firm}</td>
+				<td><a href = {"https://clinicaltrials.gov/ct2/results?cond=&term="+this.props.data.names.split(",")[0]+"&cntry=&state=&city=&dist="}>Link</a></td>
+			</tr>	
+		);
+	}
 }
 
 

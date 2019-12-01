@@ -18,7 +18,7 @@ td {
   display:none;
 }
 
-button#drugTableBtn, button#blogBtn {
+button#drugTableBtn, button#blogBtn, button#companyBtn, button#diseaseBtn, button#databankBtn {
   background-color: #008CBA;
   border: 1px solid;
   color: white;
