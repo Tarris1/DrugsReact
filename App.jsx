@@ -1,4 +1,5 @@
 import React from 'react';
+import Blog from './Blog.jsx'; //Import 'Blog' component 
 
 let data = require('../database.json');
 let blogs = require('./blogs.json');
@@ -48,7 +49,6 @@ class App extends React.Component {
    };
    
 
-//https://medium.com/better-programming/handling-multiple-form-inputs-in-react-c5eb83755d15
 	
 //https://stackoverflow.com/questions/48019130/download-save-file-in-react-js
 //https://www.npmjs.com/package/file-saver
@@ -152,35 +152,6 @@ class App extends React.Component {
 }
 
 
-
-class Blog extends React.Component {
-	render() {
-		return (
-			<div>
-				<h1>Welcome to my blog</h1>
-				<p>Introduction</p>
-				
-				{this.props.data.reverse().map((blog, i) => <BlogEntry key = {blog.id} data= {blog}/>)}</div>
-		)
-	}
-}
-//https://dev.to/zeyadetman/how-to-pass-state-between-components-in-reactjs-2pg1
-
-class BlogEntry extends React.Component {
-	//Creates each blog entry
-	render() {
-		return (
-			<table>
-				<tbody>
-					<tr><th>{"#"+this.props.data.id+": "+this.props.data.title}</th></tr>
-					<tr><td>{this.props.data.text}</td></tr>
-					<tr><td>{"Author: "+this.props.data.author}</td></tr>
-					<tr><td>{"Date: "+this.props.data.date}</td></tr>
-				</tbody>
-			</table>
-		);
-	}	
-}
 
 
 class DrugTable extends React.Component {
