@@ -8,9 +8,9 @@ td {
 }
 
 #drugTableWindow{
-  display:visibility;
+  display:none;
 }
 
 #blogWindow {
-  display:visibility;
+  display:none;
 }

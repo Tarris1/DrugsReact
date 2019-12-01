@@ -39,7 +39,7 @@ class App extends React.Component {
 		hideDatabase: "Hide database",
 		saveName: "",
 		blogs: blogs,
-		window: {drugTableWindow: "Hide drugTableWindow", blogWindow: "Hide blogWindow"},
+		window: {drugTableWindow: "Show drugTableWindow", blogWindow: "Show blogWindow"},
       }
 	  this.hideTable = this.hideTable.bind(this);
 	  this.searchResults = this.searchResults.bind(this);
@@ -95,14 +95,22 @@ class App extends React.Component {
 	}
 
 	showElement(event){
-		var newState = this.state.window;
-		var nameOfElement = event.target.name;
-		if (this.state.window[nameOfElement] == "Hide "+ nameOfElement){
-			newState[nameOfElement] = "Show "+ nameOfElement;
+		//Shows the website parts corresponding to the button and ensures the other is hidden
+		var newState = this.state.window; //Copy of button data
+		var nameOfElement = event.target.name; //Name of element to hide/show
+		var windowsToClose = Object.keys(this.state.window); //All elements that can be hidden/shown
+		if (this.state.window[nameOfElement] == "Show "+ nameOfElement){
+			for (var n in windowsToClose){
+				var other = windowsToClose[n]
+				if (other != nameOfElement){
+					newState[other] = "Show " + other;
+					document.getElementById(other).style.display = 'none';}
+				}
+			newState[nameOfElement] = "Hide "+ nameOfElement;
 			document.getElementById(nameOfElement).style.display = 'inline';//.visibility = 'hidden';
 			this.setState({window:newState});
-		} else if (this.state.window[nameOfElement] == ("Show "+ nameOfElement)) {
-			newState[nameOfElement] = "Hide "+ nameOfElement;
+		} else if (this.state.window[nameOfElement] == ("Hide "+ nameOfElement)) {
+			newState[nameOfElement] = "Show "+ nameOfElement;
 			document.getElementById(nameOfElement).style.display = 'none';//.visibility = 'visible';
 			this.setState({window:newState});
 		}
