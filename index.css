@@ -3,6 +3,9 @@ table#drugTable {
   border: 0.5px solid black;
 }
 
+table{
+  padding: 8px;
+}
 td {
   border-collapse: collapse;
 }
@@ -13,4 +16,15 @@ td {
 
 #blogWindow {
   display:none;
+}
+
+button#drugTableBtn, button#blogBtn {
+  background-color: #008CBA;
+  border: 1px solid;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }

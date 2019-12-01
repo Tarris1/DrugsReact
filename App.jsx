@@ -34,12 +34,11 @@ class App extends React.Component {
 		data: listOfDrugs,
 		header: 'My Drug Database',
 		paragraph: paragraphs,
-		i: n,
 		search: "",
 		hideDatabase: "Hide database",
 		saveName: "",
 		blogs: blogs,
-		window: {drugTableWindow: "Show drugTableWindow", blogWindow: "Show blogWindow"},
+		window: {drugTableWindow: "Show", blogWindow: "Show"},
       }
 	  this.hideTable = this.hideTable.bind(this);
 	  this.searchResults = this.searchResults.bind(this);
@@ -55,7 +54,7 @@ class App extends React.Component {
 //https://www.npmjs.com/package/file-saver
 	
    searchResults(event){
-	   
+	   //Search for matching drugs in database
 	   this.setState({search:event.target.value});
 	   var toFind = (this.state.search).toLowerCase();
 	   var newList = [];
@@ -85,7 +84,7 @@ class App extends React.Component {
 			else {fileSaver.saveAs(blob, "drugTable.json")};
 	}
 	
-	changeSaveDataName(event){this.setState({saveName:event.target.value})} //Changes the save data label - fix so that it works for any label
+	changeSaveDataName(event){this.setState({saveName:event.target.value})} //Changes the save data label
 	
 	hideTable(event){ //Hides the table
 		console.log(this.state.hideDatabase);
@@ -95,23 +94,23 @@ class App extends React.Component {
 	}
 
 	showElement(event){
-		//Shows the website parts corresponding to the button and ensures the other is hidden
+		//Shows the website parts corresponding to the button clicked and ensures the other is hidden
 		var newState = this.state.window; //Copy of button data
 		var nameOfElement = event.target.name; //Name of element to hide/show
 		var windowsToClose = Object.keys(this.state.window); //All elements that can be hidden/shown
-		if (this.state.window[nameOfElement] == "Show "+ nameOfElement){
+		if (this.state.window[nameOfElement] == "Show"){
 			for (var n in windowsToClose){
 				var other = windowsToClose[n]
 				if (other != nameOfElement){
-					newState[other] = "Show " + other;
+					newState[other] = "Show";
 					document.getElementById(other).style.display = 'none';}
 				}
-			newState[nameOfElement] = "Hide "+ nameOfElement;
-			document.getElementById(nameOfElement).style.display = 'inline';//.visibility = 'hidden';
+			newState[nameOfElement] = "Hide";
+			document.getElementById(nameOfElement).style.display = 'inline';
 			this.setState({window:newState});
-		} else if (this.state.window[nameOfElement] == ("Hide "+ nameOfElement)) {
-			newState[nameOfElement] = "Show "+ nameOfElement;
-			document.getElementById(nameOfElement).style.display = 'none';//.visibility = 'visible';
+		} else if (this.state.window[nameOfElement] == ("Hide")) {
+			newState[nameOfElement] = "Show";
+			document.getElementById(nameOfElement).style.display = 'none';
 			this.setState({window:newState});
 		}
 	}
@@ -120,11 +119,11 @@ class App extends React.Component {
       	return (
          	<div>
 				<div>
-					<button name = "drugTableWindow" onClick = {this.showElement}>{this.state.window.drugTableWindow}</button>
-					<button name = "blogWindow" onClick = {this.showElement}>{this.state.window.blogWindow}</button>
-					</div> 
+					<button name = "drugTableWindow" id = "drugTableBtn" onClick = {this.showElement}>Drug Table</button>
+					<button name = "blogWindow" id = "blogBtn" onClick = {this.showElement}>My Blog</button>
+				</div> 
 				<div id = "blogWindow">
-				{<Blog data = {this.state.blogs} hideTable = {this.hideTable}></Blog>}</div>
+				{<Blog data = {this.state.blogs}></Blog>}</div>
 
 				<div id = "drugTableWindow">
 				<h1>{this.state.header}</h1>
@@ -161,7 +160,7 @@ class Blog extends React.Component {
 				<h1>Welcome to my blog</h1>
 				<p>Introduction</p>
 				
-				{this.props.data.map((blog, i) => <BlogEntry key = {i} data= {blog}/>)}</div>
+				{this.props.data.reverse().map((blog, i) => <BlogEntry key = {blog.id} data= {blog}/>)}</div>
 		)
 	}
 }
@@ -173,10 +172,10 @@ class BlogEntry extends React.Component {
 		return (
 			<table>
 				<tbody>
-					<tr id = "title_field">{"Title: "+this.props.data.title}</tr>
-					<tr id = "text_field">{this.props.data.text}</tr>
-					<tr id = "author_field">{"Author: "+this.props.data.author}</tr>
-					<tr id = "date_field">{"Date: "+this.props.data.date}</tr>
+					<tr><th>{"#"+this.props.data.id+": "+this.props.data.title}</th></tr>
+					<tr><td>{this.props.data.text}</td></tr>
+					<tr><td>{"Author: "+this.props.data.author}</td></tr>
+					<tr><td>{"Date: "+this.props.data.date}</td></tr>
 				</tbody>
 			</table>
 		);
