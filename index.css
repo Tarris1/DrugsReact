@@ -11,12 +11,13 @@ td {
 }
 
 #drugTableWindow{
-  display:none;
+  display:inline;
 }
 
 #blogWindow {
   display:none;
 }
+
 
 button#drugTableBtn, button#blogBtn, button#companyBtn, button#diseaseBtn, button#databankBtn {
   background-color: #008CBA;
@@ -27,4 +28,8 @@ button#drugTableBtn, button#blogBtn, button#companyBtn, button#diseaseBtn, butto
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+}
+
+div#siteHeader{
+  background-color: white;
 }

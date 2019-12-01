@@ -39,7 +39,7 @@ class App extends React.Component {
 		hideDatabase: "Hide database",
 		saveName: "",
 		blogs: blogs,
-		window: {drugTableWindow: "Show", blogWindow: "Show"},
+		window: {drugTableWindow: "Hide", blogWindow: "Show"},
       }
 	  this.hideTable = this.hideTable.bind(this);
 	  this.searchResults = this.searchResults.bind(this);
@@ -118,7 +118,7 @@ class App extends React.Component {
    	render() {
       	return (
          	<div>
-				<div>
+				<div id = "siteHeader">
 					<button name = "drugTableWindow" id = "drugTableBtn" onClick = {this.showElement}>Drug Table</button>
 					<button name = "companyWindow" id = "companyBtn">Companies</button>
 					<button name = "diseaseWindow" id = "diseaseBtn">Diseases & Indicated Drugs</button>
@@ -126,28 +126,28 @@ class App extends React.Component {
 					<button name = "blogWindow" id = "blogBtn" onClick = {this.showElement}>My Blog</button>
 				</div> 
 				<div id = "blogWindow">
-				{<Blog data = {this.state.blogs}></Blog>}</div>
+					{<Blog data = {this.state.blogs}></Blog>}
+				</div>
 
 				<div id = "drugTableWindow">
-				<h1>{this.state.header}</h1>
-				<p>{this.state.paragraph.introduction}</p>
+					<h1>{this.state.header}</h1>
+					<p>{this.state.paragraph.introduction}</p>
+					
+					<table>
+						<tbody>
+							<tr><td><button onClick = {this.hideTable}>{this.state.hideDatabase}</button></td></tr>
+							<tr>
+								<td><label>Search: <input type="text" name = "search" value = {this.state.search} onChange = {this.searchResults}/></label></td>
+								<td><label>Save data as: <input type="text" name = "saveData" value = {this.state.saveName} onChange = {this.changeSaveDataName}/></label></td>
+								<td><button onClick = {this.saveData}>Click to save</button></td>
+							</tr>
+						</tbody>
+					</table>
 				
-				<table>
-					<tbody>
-						<tr><td><button onClick = {this.hideTable}>{this.state.hideDatabase}</button></td></tr>
-						<tr>
-							<td><label>Search: <input type="text" name = "search" value = {this.state.search} onChange = {this.searchResults}/></label></td>
-							<td><label>Save data as: <input type="text" name = "saveData" value = {this.state.saveName} onChange = {this.changeSaveDataName}/></label></td>
-							<td><button onClick = {this.saveData}>Click to save</button></td>
-						</tr>
-					</tbody>
-				</table>
-			
-			
-				<table id = "drugTable" >
-
-					{<DrugTable data = {this.state} hideTable = {this.hideTable}></DrugTable>}
-				</table>
+				
+					<table id = "drugTable" >
+						{<DrugTable data = {this.state} hideTable = {this.hideTable}></DrugTable>}
+					</table>
 				</div>
 			</div>
 		);
