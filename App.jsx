@@ -1,5 +1,6 @@
 import React from 'react';
 import Blog from './Blog.jsx'; //Import 'Blog' component 
+import DrugTable from './DrugTable.jsx'; //Import 'DrugTable component
 
 let data = require('../database.json');
 let blogs = require('./blogs.json');
@@ -87,7 +88,7 @@ class App extends React.Component {
 	changeSaveDataName(event){this.setState({saveName:event.target.value})} //Changes the save data label
 	
 	hideTable(event){ //Hides the table
-		console.log(this.state.hideDatabase);
+		//console.log(this.state.hideDatabase);
 		if(this.state.hideDatabase == "Unhide database") {
 			this.setState({data:listOfDrugs, hideDatabase:"Hide database"})
 		} else {this.setState({data:[], hideDatabase:"Unhide database"})}
@@ -125,29 +126,15 @@ class App extends React.Component {
 					<button name = "databankWindow" id = "databankBtn">Databank</button>
 					<button name = "blogWindow" id = "blogBtn" onClick = {this.showElement}>My Blog</button>
 				</div> 
+
 				<div id = "blogWindow">
 					{<Blog data = {this.state.blogs}></Blog>}
 				</div>
 
 				<div id = "drugTableWindow">
-					<h1>{this.state.header}</h1>
-					<p>{this.state.paragraph.introduction}</p>
-					
-					<table>
-						<tbody>
-							<tr><td><button onClick = {this.hideTable}>{this.state.hideDatabase}</button></td></tr>
-							<tr>
-								<td><label>Search: <input type="text" name = "search" value = {this.state.search} onChange = {this.searchResults}/></label></td>
-								<td><label>Save data as: <input type="text" name = "saveData" value = {this.state.saveName} onChange = {this.changeSaveDataName}/></label></td>
-								<td><button onClick = {this.saveData}>Click to save</button></td>
-							</tr>
-						</tbody>
-					</table>
-				
-				
-					<table id = "drugTable" >
-						{<DrugTable data = {this.state} hideTable = {this.hideTable}></DrugTable>}
-					</table>
+					{<DrugTable data = {this.state} hideTable = {this.hideTable} searchResults = {this.searchResults} 
+					changeSaveDataName = {this.changeSaveDataName} saveData = {this.saveData}></DrugTable>}
+						
 				</div>
 			</div>
 		);
@@ -155,53 +142,6 @@ class App extends React.Component {
 }
 
 
-
-
-class DrugTable extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = { 
-		  
-		}
-		//this.updateDatabase = this.updateDatabase.bind(this);
-	}
-
-	//updateDatabase(){this.props.hideTable};
-
-	render() {
-		return (
-			<tbody>
-			   	<tr> 
-					<td>#</td>
-					<td>Names</td>
-					<td>Indications</td>
-					<td>Category</td>
-					<td>Firms</td>
-					<td>Trials</td>
-				</tr>
-	
-				{this.props.data.data.map((drug, i) => <DrugTableRow key = {i} data = {drug} />)}
-			</tbody>
-
-		)
-	}
-
-}
-
-class DrugTableRow extends React.Component {
-	render() {
-		return (
-			<tr>
-				<td> {this.props.data.id}</td>
-				<td> {this.props.data.names}</td>
-				<td> {this.props.data.indications}</td>
-				<td> {this.props.data.category}</td>
-				<td> {this.props.data.firm}</td>
-				<td><a href = {"https://clinicaltrials.gov/ct2/results?cond=&term="+this.props.data.names.split(",")[0]+"&cntry=&state=&city=&dist="}>Link</a></td>
-			</tr>	
-		);
-	}
-}
 
 
 export default App;
