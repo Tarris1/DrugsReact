@@ -7,7 +7,6 @@ let blogs = require('./blogs.json');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 var fileSaver = require('file-saver'); 
 
-
 function transferToDict(id) {
 	var dictionary = data['drugs'][id];
 	return {
@@ -23,13 +22,7 @@ var listOfDrugs = [];
 for (var n in data['drugs']) {listOfDrugs.push(transferToDict(n))}
 
 
-//https://medium.com/@siobhanpmahoney/local-storage-in-a-react-single-page-application-34ba30fc977d
-//https://www.robinwieruch.de/local-storage-react
-//https://stackoverflow.com/questions/19327749/javascript-blob-filename-without-link
-
-
 class App extends React.Component {
-	
    constructor() {
       super();
       this.state = { //State is the place where data comes from - make as simple as possible
@@ -39,8 +32,8 @@ class App extends React.Component {
 		search: "",
 		hideDatabase: "Hide database",
 		saveName: "",
-		blogs: blogs,
-		window: {drugTableWindow: "Hide", blogWindow: "Show"},
+		blogs: blogs.reverse(),
+		window: {drugTableWindow: "Hide", blogWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
       }
 	  this.hideTable = this.hideTable.bind(this);
 	  this.searchResults = this.searchResults.bind(this);
@@ -50,10 +43,6 @@ class App extends React.Component {
    };
    
 
-	
-//https://stackoverflow.com/questions/48019130/download-save-file-in-react-js
-//https://www.npmjs.com/package/file-saver
-	
    searchResults(event){
 	   //Search for matching drugs in database
 	   this.setState({search:event.target.value});
@@ -70,10 +59,7 @@ class App extends React.Component {
 	   
    }
 	
-   
-
 	
-	//https://javascript.info/blob
 	saveData(event){ //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
 		var blob = new Blob([JSON.stringify(this.state.data)], {type: "application/json"});
 		const saveToName = this.state.saveName;
@@ -116,32 +102,41 @@ class App extends React.Component {
 		}
 	}
 
+
    	render() {
       	return (
          	<div>
 				<div id = "siteHeader">
 					<button name = "drugTableWindow" id = "drugTableBtn" onClick = {this.showElement}>Drug Table</button>
-					<button name = "companyWindow" id = "companyBtn">Companies</button>
+					<button name = "companyWindow" id = "companyBtn" onClick = {this.showElement}>Companies</button>
 					<button name = "diseaseWindow" id = "diseaseBtn">Diseases & Indicated Drugs</button>
-					<button name = "databankWindow" id = "databankBtn">Databank</button>
+					<button name = "databankWindow" id = "databankBtn" onClick = {this.showElement}>Databank</button>
 					<button name = "blogWindow" id = "blogBtn" onClick = {this.showElement}>My Blog</button>
 				</div> 
+
+				<div id = "drugTableWindow">
+					{<DrugTable data = {this.state} hideTable = {this.hideTable} searchResults = {this.searchResults} 
+					changeSaveDataName = {this.changeSaveDataName} saveData = {this.saveData}></DrugTable>}
+				</div>
+
+				<div id = "companyWindow">
+				
+					
+				</div>
+
+				<div id = "databankWindow">
+					<button name = "drugDataBtn" >Drug Data</button>
+					<button name = "companyDataBtn">Company Data</button>
+					<button name = "diseaseDataBtn">Disease Data</button>
+				</div>
 
 				<div id = "blogWindow">
 					{<Blog data = {this.state.blogs}></Blog>}
 				</div>
 
-				<div id = "drugTableWindow">
-					{<DrugTable data = {this.state} hideTable = {this.hideTable} searchResults = {this.searchResults} 
-					changeSaveDataName = {this.changeSaveDataName} saveData = {this.saveData}></DrugTable>}
-						
-				</div>
 			</div>
 		);
 	}
 }
-
-
-
 
 export default App;

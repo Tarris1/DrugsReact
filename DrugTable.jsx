@@ -36,8 +36,6 @@ class DrugTable extends React.Component {
 }
 
 
-
-
 class DrugTableRow extends React.Component {
 	render() {
 		return (

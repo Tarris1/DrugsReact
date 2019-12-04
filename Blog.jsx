@@ -8,7 +8,7 @@ class Blog extends React.Component {
 				<h1>Welcome to my blog</h1>
 				<p>Introduction</p>
 				
-				{this.props.data.reverse().map((blog, blogNumber) => <BlogEntry key = {blog.id} data= {blog}/>)}</div>
+				{this.props.data.map((blog, blogNumber) => <BlogEntry key = {blog.id} data= {blog}/>)}</div>
 		)
 	}
 }
