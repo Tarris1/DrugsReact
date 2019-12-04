@@ -1,11 +1,14 @@
 import React from 'react';
 import Blog from './Blog.jsx'; //Import 'Blog' component 
 import DrugTable from './DrugTable.jsx'; //Import 'DrugTable component
+import CompanyOverview from './CompanyOverview.jsx';
 
 let data = require('../database.json');
 let blogs = require('./blogs.json');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
+let companyData = require('./companyOverview.json');
 var fileSaver = require('file-saver'); 
+
 
 function transferToDict(id) {
 	var dictionary = data['drugs'][id];
@@ -34,6 +37,7 @@ class App extends React.Component {
 		saveName: "",
 		blogs: blogs.reverse(),
 		window: {drugTableWindow: "Hide", blogWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
+		companyData: companyData,
       }
 	  this.hideTable = this.hideTable.bind(this);
 	  this.searchResults = this.searchResults.bind(this);
@@ -120,8 +124,8 @@ class App extends React.Component {
 				</div>
 
 				<div id = "companyWindow">
-				
 					
+					{<CompanyOverview data = {this.state.companyData}></CompanyOverview>}
 				</div>
 
 				<div id = "databankWindow">

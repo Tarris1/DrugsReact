@@ -17,9 +17,9 @@ class CompanyOverview extends React.Component{
 						<td>Drugs</td>
 						<td>Specialization</td>
 						<td>Press Releases</td>
-						<td>Headquarters</td>
+						<td>Headquarters</td> 
 					</tr>
-					{this.props.data.companies.map((company, j) => <CompanyRow key = {company.id} data = {company}/>)}
+					{this.props.data.map((company, j) => <CompanyRow key = {j} data = {company}/>)}
 				</tbody>
 			</table>
 		)
@@ -30,18 +30,18 @@ class CompanyRow extends React.Component {
 	render() {
 		return (
 			<tr>
-				<td>this.props.data.id</td>
-				<td>this.props.data.name</td>
-				<td>this.props.data.ticker</td>
-				<td>this.props.data.exchange</td>
-				<td>this.props.data.price</td>
-				<td>this.props.data.shares</td>
-				<td>this.props.data.marketCap</td>
-				<td>this.props.data.quarterly</td>
-				<td>this.props.data.drugs</td>
-				<td>this.props.data.specialization</td>
-				<td>this.props.data.pressReleases</td>
-				<td>this.props.data.headquarters</td>
+				<td>{this.props.data.id}</td>
+				<td>{this.props.data.name}</td>
+				<td>{this.props.data.ticker}</td>
+				<td>{this.props.data.exchange}</td>
+				<td>{this.props.data.price}</td>
+				<td>{this.props.data.shares}</td>
+				<td>{this.props.data.marketCap}</td>
+				<td>{this.props.data.quarterly}</td>
+				{/*<td>this.props.data.drugs</td>*/}
+				<td>{this.props.data.specialization}</td>
+				<td>{this.props.data.pressReleases}</td>
+				<td>{this.props.data.headquarters}</td>
 			</tr>
 		)
     }
