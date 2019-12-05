@@ -14,7 +14,7 @@ td {
   display:inline;
 }
 
-#blogWindow {
+#blogWindow, #databankWindow, #companyWindow {
   display:none;
 }
 
