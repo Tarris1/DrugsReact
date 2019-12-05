@@ -1,5 +1,14 @@
 import React from 'react'
 
+var digits = 2;
+function numberFormatting(number, digits = digits) {
+    if (number.length!=0){ //Checks if its actually a number
+        var newNumber = new Intl.NumberFormat('ja-JP', {maximumFractionDigits: digits }).format(number);
+        return ("$"+newNumber)}
+    else{return number};
+}
+
+
 class CompanyOverview extends React.Component{
 	render() {
 		return (
@@ -38,6 +47,7 @@ class CompanyOverview extends React.Component{
 }
 
 class CompanyRow extends React.Component {
+
 	render() {
 		return (
 			<tr>
@@ -45,10 +55,10 @@ class CompanyRow extends React.Component {
 				<td>{this.props.data.name}</td>
 				<td>{this.props.data.ticker}</td>
 				<td>{this.props.data.exchange}</td>
-				<td>{this.props.data.price}</td>
-				<td>{this.props.data.shares}</td>
-				<td>{this.props.data.marketCap}</td>
-				<td>{this.props.data.quarterly}</td>
+				<td>{numberFormatting(this.props.data.price)}</td>
+				<td>{numberFormatting(this.props.data.shares, digits = 0)}</td>
+				<td>{numberFormatting(this.props.data.marketCap, digits = 0)}</td>
+				<td>{numberFormatting(this.props.data.quarterly, digits = 0)}</td>
 				{/*<td>{this.props.data.drugs}</td>*/}
 				<td>{this.props.data.specialization}</td>
 				<td><a href = {this.props.data.pressReleases}>Link</a></td>
