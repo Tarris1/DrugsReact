@@ -33,6 +33,7 @@ class App extends React.Component {
 		header: 'My Drug Database',
 		paragraph: paragraphs,
 		search: "",
+		companySearch: "",
 		hideDatabase: "Hide database",
 		saveName: "",
 		blogs: blogs.reverse(),
@@ -41,6 +42,7 @@ class App extends React.Component {
       }
 	  this.hideTable = this.hideTable.bind(this);
 	  this.searchResults = this.searchResults.bind(this);
+	  this.searchCompany = this.searchCompany.bind(this);
 	  this.changeSaveDataName = this.changeSaveDataName.bind(this);
 	  this.saveData = this.saveData.bind(this);
 	  this.showElement = this.showElement.bind(this);
@@ -63,7 +65,21 @@ class App extends React.Component {
 	   
    }
 	
-	
+   searchCompany(event){
+		this.setState({companySearch:event.target.value});
+		var companies = this.state.companyData;
+		var toFind = (this.state.companySearch).toLowerCase();
+		var newCompanyList = [];
+		var stringOfData = "";
+		if (toFind != ""){
+			for (var j in companies){
+				stringOfData = (companies[j].name+companies[j].ticker+companies[j].exchange+companies[j].specialization).toLowerCase();
+				if (stringOfData.indexOf(toFind) !== -1) {newCompanyList.push(companies[j])}
+			}
+			this.setState({companyData:newCompanyList})
+		} else{this.setState({companyData:companyData})}
+   }
+
 	saveData(event){ //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
 		var blob = new Blob([JSON.stringify(this.state.data)], {type: "application/json"});
 		const saveToName = this.state.saveName;
@@ -125,7 +141,7 @@ class App extends React.Component {
 
 				<div id = "companyWindow">
 					
-					{<CompanyOverview data = {this.state.companyData}></CompanyOverview>}
+					{<CompanyOverview data = {this.state} searchCompany = {this.searchCompany}></CompanyOverview>}
 				</div>
 
 				<div id = "databankWindow">
