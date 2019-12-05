@@ -9,7 +9,6 @@ let paragraphs = require('../paragraphs_two.json'); //not sure why regular parag
 let companyData = require('./companyOverview.json');
 var fileSaver = require('file-saver'); 
 
-
 function transferToDict(id) {
 	var dictionary = data['drugs'][id];
 	return {
@@ -23,7 +22,6 @@ function transferToDict(id) {
 
 var listOfDrugs = [];
 for (var n in data['drugs']) {listOfDrugs.push(transferToDict(n))}
-
 
 class App extends React.Component {
    constructor() {
@@ -48,7 +46,6 @@ class App extends React.Component {
 	  this.showElement = this.showElement.bind(this);
    };
    
-
    searchResults(event){
 	   //Search for matching drugs in database
 	   this.setState({search:event.target.value});
@@ -122,7 +119,6 @@ class App extends React.Component {
 		}
 	}
 
-
    	render() {
       	return (
          	<div>
@@ -153,7 +149,6 @@ class App extends React.Component {
 				<div id = "blogWindow">
 					{<Blog data = {this.state.blogs}></Blog>}
 				</div>
-
 			</div>
 		);
 	}
