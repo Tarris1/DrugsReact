@@ -51,7 +51,7 @@ class CompanyRow extends React.Component {
 				<td>{this.props.data.quarterly}</td>
 				{/*<td>{this.props.data.drugs}</td>*/}
 				<td>{this.props.data.specialization}</td>
-				<td>{this.props.data.pressReleases}</td>
+				<td><a href = {this.props.data.pressReleases}>Link</a></td>
 				<td>{this.props.data.headquarters}</td>
 			</tr>
 		)

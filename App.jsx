@@ -73,7 +73,7 @@ class App extends React.Component {
 		var stringOfData = "";
 		if (toFind != ""){
 			for (var j in companies){
-				stringOfData = (companies[j].name+companies[j].ticker+companies[j].exchange+companies[j].specialization).toLowerCase();
+				stringOfData = (companies[j].name+companies[j].ticker+companies[j].exchange+companies[j].specialization+companies[j].headquarters).toLowerCase();
 				if (stringOfData.indexOf(toFind) !== -1) {newCompanyList.push(companies[j])}
 			}
 			this.setState({companyData:newCompanyList})
