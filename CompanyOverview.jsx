@@ -8,7 +8,6 @@ function numberFormatting(number, digits = digits) {
     else{return number};
 }
 
-
 class CompanyOverview extends React.Component{
 	render() {
 		return (

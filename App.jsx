@@ -2,6 +2,7 @@ import React from 'react';
 import Blog from './Blog.jsx'; //Import 'Blog' component 
 import DrugTable from './DrugTable.jsx'; //Import 'DrugTable component
 import CompanyOverview from './CompanyOverview.jsx';
+import DrugsOfCompany from './DrugsOfCompany.jsx';
 
 let data = require('../database.json');
 let blogs = require('./blogs.json');
@@ -37,7 +38,7 @@ class App extends React.Component {
 		blogs: blogs.reverse(),
 		window: {drugTableWindow: "Hide", blogWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
 		companyData: companyData,
-		drugsOfCompany: [],
+		drugsOfCompany: {drugs:[], name:""},
       }
 	  this.hideTable = this.hideTable.bind(this);
 	  this.searchResults = this.searchResults.bind(this);
@@ -123,16 +124,16 @@ class App extends React.Component {
 
 	companyDrugs(event){
 		var buttonName = event.target.name;
+		var drugsOfCompany = this.state.drugsOfCompany;
 		if (buttonName != "Return"){
-			var drugs = event.target.value;
-			drugs = JSON.parse(drugs);
-			if (drugs.length == 0){drugs = []}
-			this.setState({drugsOfCompany:drugs});
+			var drugs = JSON.parse(event.target.value);
+			drugsOfCompany['drugs'] = drugs
+			drugsOfCompany['name'] = buttonName
+			this.setState({drugsOfCompany:drugsOfCompany});
 			document.getElementById("companyWindow").style.display = 'none';
 			document.getElementById("drugsOfCompanyWindow").style.display = "inline";
 	} else {
 		document.getElementById("companyWindow").style.display = 'inline';
-		this.setState({drugsOfCompany:[]})
 		document.getElementById("drugsOfCompanyWindow").style.display = "none";
 		}
 	}
@@ -177,47 +178,7 @@ class App extends React.Component {
 	}
 }
 
-class DrugsOfCompany extends React.Component {
-	render() {
-		return (
-			<div>
-				<table>
-					<tbody>
-						<tr><td><button onClick = {this.props.companyDrugs} name = "Return">Return</button></td></tr>
-					</tbody>
-				</table>
-				<table>
-					<tbody>
-						<tr> 
-							<td>#</td>
-							<td>Names</td>
-							<td>Indications</td>
-							<td>Category</td>
-							<td>Firms</td>
-							<td>Trials</td>
-						</tr>
-						{this.props.data.map((drug, i) => <DrugTableRow key = {i} data = {drug} id = {i+1} />)}
-					</tbody>
-				</table>
-			</div>
-		)
-	}
-}
 
-class DrugTableRow extends React.Component {
-	render() {
-		return (
-			<tr>
-				<td>{this.props.id}</td>
-				<td>{this.props.data.name}</td>
-				<td>{this.props.data.disease}</td>
-				<td>{this.props.data.category}</td>
-				<td>{this.props.data.misc}</td>
-				<td><a href = {"https://clinicaltrials.gov/ct2/results?cond=&term="+this.props.data.name.split(",")[0]+"&cntry=&state=&city=&dist="}>Link</a></td>
-			</tr>	
-		);
-	}
-}
 
 
 export default App;
