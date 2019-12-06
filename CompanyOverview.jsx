@@ -32,13 +32,14 @@ class CompanyOverview extends React.Component{
                             <td>Shares</td>
                             <td>Market Cap.</td>
                             <td>Quarterly Revenue</td>
-                            {/*<td>Drugs</td>*/}
+                            <td>Drugs</td>
                             <td>Specialization</td>
                             <td>Press Releases</td>
                             <td>Headquarters</td> 
                         </tr>
                         
-                        {this.props.data.companyData.map((company, j) => <CompanyRow key = {j} data = {company}/>)}
+                        {this.props.data.companyData.map((company, j) => <CompanyRow key = {j} data = {company} 
+                        companyDrugs = {this.props.companyDrugs}/>)}
                     </tbody>
                 </table>
             </div>
@@ -59,7 +60,9 @@ class CompanyRow extends React.Component {
 				<td>{numberFormatting(this.props.data.shares, digits = 0)}</td>
 				<td>{numberFormatting(this.props.data.marketCap, digits = 0)}</td>
 				<td>{numberFormatting(this.props.data.quarterly, digits = 0)}</td>
-				{/*<td>{this.props.data.drugs}</td>*/}
+                
+                <td><button name = {this.props.data.name} value = {JSON.stringify(this.props.data.drugs)} 
+                    onClick = {this.props.companyDrugs}>Drugs</button></td>
 				<td>{this.props.data.specialization}</td>
 				<td><a href = {this.props.data.pressReleases}>Link</a></td>
 				<td>{this.props.data.headquarters}</td>
