@@ -44,35 +44,35 @@ class App extends React.Component {
    
 	searchResults = event => {
 		//Search for matching drugs in database
-			this.setState({ search: event.target.value});
-			var toFind = (this.state.search).toLowerCase();
-			if(toFind != "") {
-					var newList = [];
-					var stringOfData = "";
-					for (var z in listOfDrugs) {
-						stringOfData = (listOfDrugs[z].names + listOfDrugs[z].indications
-							+ listOfDrugs[z].firm + listOfDrugs[z].category).toLowerCase()
-						if (stringOfData.indexOf(toFind) !== -1) {newList.push(listOfDrugs[z])}
-					}
-					this.setState({ data: newList});
-			} else {this.setState({ data: listOfDrugs})};
+		this.setState({ search: event.target.value});
+		var toFind = (this.state.search).toLowerCase();
+		if(toFind != "") {
+				var newList = [];
+				var stringOfData = "";
+				for (var z in listOfDrugs) {
+					stringOfData = (listOfDrugs[z].names + listOfDrugs[z].indications
+						+ listOfDrugs[z].firm + listOfDrugs[z].category).toLowerCase()
+					if (stringOfData.indexOf(toFind) !== -1) {newList.push(listOfDrugs[z])}
+				}
+				this.setState({ data: newList});
+		} else {this.setState({ data: listOfDrugs})};
 		
 	}
 		
 	searchCompany = event => {
-			this.setState({ companySearch: event.target.value});
-			var toFind = (this.state.companySearch).toLowerCase();
-			if (toFind != ""){
-				var companies = this.state.companyData;
-				var newCompanyList = [];
-				var stringOfData = "";
-				for (var j in companies){
-					stringOfData = (companies[j].name + companies[j].ticker + companies[j].exchange + companies[j].specialization
-						+ companies[j].headquarters).toLowerCase();
-					if (stringOfData.indexOf(toFind) !== -1) {newCompanyList.push(companies[j])}
-				}
-				this.setState({companyData:newCompanyList})
-			} else{this.setState({companyData:companyData})}
+		this.setState({ companySearch: event.target.value});
+		var toFind = (this.state.companySearch).toLowerCase();
+		if (toFind != ""){
+			var companies = this.state.companyData;
+			var newCompanyList = [];
+			var stringOfData = "";
+			for (var j in companies){
+				stringOfData = (companies[j].name + companies[j].ticker + companies[j].exchange + companies[j].specialization
+					+ companies[j].headquarters).toLowerCase();
+				if (stringOfData.indexOf(toFind) !== -1) {newCompanyList.push(companies[j])}
+			}
+			this.setState({companyData:newCompanyList})
+		} else{this.setState({companyData:companyData})}
 	}
 
 	saveData = event => { //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
