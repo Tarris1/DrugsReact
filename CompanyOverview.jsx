@@ -15,12 +15,12 @@ class CompanyOverview extends React.Component{
                 <table>
                     <tbody>
                         <tr>
-                            <td><label>Search: <input type="text" name = "companySearch" 
-                            value = {this.props.data.companySearch} onChange = {this.props.searchCompany}/></label></td>
+                            <td><label>Search: <input type="text" name="companySearch" 
+                            value={this.props.data.companySearch} onChange={this.props.searchCompany}/></label></td>
                         </tr>
                     </tbody>
                 </table>
-                <table id = "CompanyTable">
+                <table id="CompanyTable">
                     <tbody>
                         <tr>
                             <td>#</td>
@@ -37,8 +37,8 @@ class CompanyOverview extends React.Component{
                             <td>Headquarters</td> 
                         </tr>
                         
-                        {this.props.data.companyData.map((company, j) => <CompanyRow key = {j} data = {company} 
-                        companyDrugs = {this.props.companyDrugs}/>)}
+                        {this.props.data.companyData.map((company, j) => <CompanyRow key={j} data={company} 
+                        companyDrugs={this.props.companyDrugs}/>)}
                     </tbody>
                 </table>
             </div>
@@ -59,11 +59,10 @@ class CompanyRow extends React.Component {
 				<td>{numberFormatting(this.props.data.shares, digits = 0)}</td>
 				<td>{numberFormatting(this.props.data.marketCap, digits = 0)}</td>
 				<td>{numberFormatting(this.props.data.quarterly, digits = 0)}</td>
-                
-                <td><button name = {this.props.data.name} value = {JSON.stringify(this.props.data.drugs)} 
-                    onClick = {this.props.companyDrugs}>Drugs</button></td>
+                <td><button name={this.props.data.name} value={JSON.stringify(this.props.data.drugs)} 
+                    onClick={this.props.companyDrugs}>Drugs</button></td>
 				<td>{this.props.data.specialization}</td>
-				<td><a href = {this.props.data.pressReleases}>Link</a></td>
+				<td><a href={this.props.data.pressReleases}>Link</a></td>
 				<td>{this.props.data.headquarters}</td>
 			</tr>
 		)

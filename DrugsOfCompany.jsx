@@ -6,8 +6,8 @@ class DrugsOfCompany extends React.Component {
 			<div>
 				<table>
 					<tbody>
-						<tr><td><button onClick = {this.props.companyDrugs} name = "Return">Return</button></td></tr>
-						<tr><td>{"Drugs relevant to "+this.props.data.name+":"}</td></tr>
+						<tr><td><button onClick={this.props.companyDrugs} name="Return">Return</button></td></tr>
+						<tr><td>{"Drugs relevant to " + this.props.data.name + ":"}</td></tr>
 					</tbody>
 				</table>
 				<table>
@@ -20,7 +20,7 @@ class DrugsOfCompany extends React.Component {
 							<td>Firms</td>
 							<td>Trials</td>
 						</tr>
-						{this.props.data.drugs.map((drug, i) => <DrugTableRow key = {i} data = {drug} id = {i+1} />)}
+						{this.props.data.drugs.map((drug, i) => <DrugTableRow key={i} data={drug} id={i+1} />)}
 					</tbody>
 				</table>
 			</div>
@@ -37,7 +37,8 @@ class DrugTableRow extends React.Component {
 				<td>{this.props.data.disease}</td>
 				<td>{this.props.data.category}</td>
 				<td>{this.props.data.misc}</td>
-				<td><a href = {"https://clinicaltrials.gov/ct2/results?cond=&term="+this.props.data.name.split(",")[0]+"&cntry=&state=&city=&dist="}>Link</a></td>
+                <td><a href={"https://clinicaltrials.gov/ct2/results?cond=&term=" + this.props.data.name.split(",")[0] + 
+                "&cntry=&state=&city=&dist="}>Link</a></td>
 			</tr>	
 		);
 	}

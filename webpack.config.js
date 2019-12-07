@@ -26,7 +26,8 @@ module.exports = {
    plugins:[
       new HtmlWebpackPlugin({
          template: './index.html'
-      })
+      }),
+      //["@babel/plugin-proposal-class-properties", { "loose": true }]
    ]
    //loaders: [
  // { test: /\.json$/, loader: 'json-loader' },
