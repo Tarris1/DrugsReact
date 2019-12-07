@@ -133,8 +133,8 @@ class App extends React.Component {
 		}
 	}
 
-   	render() {
-      	return (
+	render() {
+		return (
 			<div>
 				<div id="siteHeader">
 					<button name="drugTableWindow" id="drugTableBtn" onClick={this.showElement}>Drug Table</button>
