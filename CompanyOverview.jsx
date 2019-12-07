@@ -59,8 +59,7 @@ class CompanyRow extends React.Component {
 				<td>{numberFormatting(this.props.data.shares, digits = 0)}</td>
 				<td>{numberFormatting(this.props.data.marketCap, digits = 0)}</td>
 				<td>{numberFormatting(this.props.data.quarterly, digits = 0)}</td>
-                <td><button name={this.props.data.name} value={JSON.stringify(this.props.data.drugs)} 
-                    onClick={this.props.companyDrugs}>Drugs</button></td>
+                <td><button name={this.props.data.name} value={JSON.stringify(this.props.data.drugs)} onClick={this.props.companyDrugs}>Drugs</button></td>
 				<td>{this.props.data.specialization}</td>
 				<td><a href={this.props.data.pressReleases}>Link</a></td>
 				<td>{this.props.data.headquarters}</td>

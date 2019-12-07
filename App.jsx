@@ -135,7 +135,7 @@ class App extends React.Component {
 
    	render() {
       	return (
-         	<div>
+			<div>
 				<div id="siteHeader">
 					<button name="drugTableWindow" id="drugTableBtn" onClick={this.showElement}>Drug Table</button>
 					<button name="companyWindow" id="companyBtn" onClick={this.showElement}>Companies</button>
