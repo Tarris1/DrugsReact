@@ -47,14 +47,14 @@ class App extends React.Component {
 		this.setState({ search: event.target.value});
 		var toFind = (this.state.search).toLowerCase();
 		if(toFind != "") {
-				var newList = [];
-				var stringOfData = "";
-				for (var z in listOfDrugs) {
-					stringOfData = (listOfDrugs[z].names + listOfDrugs[z].indications
-						+ listOfDrugs[z].firm + listOfDrugs[z].category).toLowerCase()
-					if (stringOfData.indexOf(toFind) !== -1) {newList.push(listOfDrugs[z])}
-				}
-				this.setState({ data: newList});
+			var newList = [];
+			var stringOfData = "";
+			for (var z in listOfDrugs) {
+				stringOfData = (listOfDrugs[z].names + listOfDrugs[z].indications
+					+ listOfDrugs[z].firm + listOfDrugs[z].category).toLowerCase()
+				if (stringOfData.indexOf(toFind) !== -1) {newList.push(listOfDrugs[z])}
+			}
+			this.setState({ data: newList});
 		} else {this.setState({ data: listOfDrugs})};
 		
 	}
