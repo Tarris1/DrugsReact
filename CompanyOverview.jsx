@@ -53,13 +53,13 @@ class CompanyRow extends React.Component {
 			<tr>
 				<td>{this.props.data.id}</td>
 				<td>{this.props.data.name}</td>
-				<td>{this.props.data.ticker}</td>
+				<td><a href = {"https://www.google.com/search?q=" + this.props.data.exchange + ":" + this.props.data.ticker}>{this.props.data.ticker}</a></td>
 				<td>{this.props.data.exchange}</td>
 				<td>{numberFormatting(this.props.data.price)}</td>
 				<td>{numberFormatting(this.props.data.shares, digits = 0)}</td>
 				<td>{numberFormatting(this.props.data.marketCap, digits = 0)}</td>
 				<td>{numberFormatting(this.props.data.quarterly, digits = 0)}</td>
-                <td><button name={this.props.data.name} value={JSON.stringify(this.props.data.drugs)} onClick={this.props.companyDrugs}>Drugs</button></td>
+                <td><button name={this.props.data.name} value={JSON.stringify(this.props.data.drugs)} onClick={this.props.companyDrugs}>Products</button></td>
 				<td>{this.props.data.specialization}</td>
 				<td><a href={this.props.data.pressReleases}>Link</a></td>
 				<td>{this.props.data.headquarters}</td>

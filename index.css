@@ -14,12 +14,12 @@ td {
   display:inline;
 }
 
-#blogWindow, #databankWindow, #companyWindow, #drugsOfCompanyWindow {
+#blogWindow, #databankWindow, #companyWindow, #drugsOfCompanyWindow, #diseaseWindow {
   display:none;
 }
 
 
-button#drugTableBtn, button#blogBtn, button#companyBtn, button#diseaseBtn, button#databankBtn {
+button#drugTableBtn, button#blogBtn, button#companyBtn, button#diseaseBtn, button#databankBtn, button#newsBtn {
   background-color: #08089b;
   border: 1px solid;
   color: white;

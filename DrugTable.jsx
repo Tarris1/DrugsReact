@@ -26,7 +26,7 @@ class DrugTable extends React.Component {
 							<td>Firms</td>
 							<td>Trials</td>
 						</tr>
-						{this.props.data.data.map((drug, i) => <DrugTableRow key={i} data={drug} />)}
+						{this.props.data.drugData.map((drug, i) => <DrugTableRow key={i} data={drug} />)}
 					</tbody>
 				</table>
 			</div>

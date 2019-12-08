@@ -3,12 +3,18 @@ import Blog from './Blog.jsx'; //Import 'Blog' component
 import DrugTable from './DrugTable.jsx'; //Import 'DrugTable component
 import CompanyOverview from './CompanyOverview.jsx';
 import DrugsOfCompany from './DrugsOfCompany.jsx';
+import DiseaseTable from './DiseaseTable.jsx';
 
 let data = require('../database.json');
 let blogs = require('./blogs.json');
+let diseaseData = require('./diseaseData');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 let companyData = require('./companyOverview.json');
 var fileSaver = require('file-saver'); 
+
+var categoriesOfDisease = ["Cardiovascular/Metabolic", "Pulmology", "Neuroscience", "CNS",
+ "Obstetrics/Gynaecology", "Hematology", "Rheumatology", "Oncology", "Endocrinology","Dermatology", "Ophthalmology"]
+
 
 function transferToDict(id) {
 	var dictionary = data['drugs'][id];
@@ -28,15 +34,16 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = { //State is the place where data comes from - make as simple as possible
-			data: listOfDrugs,
+			drugData: listOfDrugs,
 			header: 'My Drug Database',
 			paragraph: paragraphs,
-			search: "",
+			drugSearch: "",
 			companySearch: "",
 			hideDatabase: "Hide database",
+			diseases: diseaseData,
 			saveName: "",
 			blogs: blogs.reverse(),
-			window: {drugTableWindow: "Hide", blogWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
+			window: {drugTableWindow: "Hide", blogWindow: "Show", diseaseWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
 			companyData: companyData,
 			drugsOfCompany: {drugs: [], name: ""},
 		}
@@ -44,8 +51,8 @@ class App extends React.Component {
    
 	searchResults = event => {
 		//Search for matching drugs in database
-		this.setState({ search: event.target.value});
-		var toFind = (this.state.search).toLowerCase();
+		this.setState({ drugSearch: event.target.value});
+		var toFind = (this.state.drugSearch).toLowerCase();
 		if(toFind != "") {
 			var newList = [];
 			var stringOfData = "";
@@ -54,8 +61,8 @@ class App extends React.Component {
 					+ listOfDrugs[z].firm + listOfDrugs[z].category).toLowerCase()
 				if (stringOfData.indexOf(toFind) !== -1) {newList.push(listOfDrugs[z])}
 			}
-			this.setState({ data: newList});
-		} else {this.setState({ data: listOfDrugs})};
+			this.setState({ drugData: newList});
+		} else {this.setState({ drugData: listOfDrugs})};
 		
 	}
 		
@@ -76,9 +83,9 @@ class App extends React.Component {
 	}
 
 	saveData = event => { //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
-		var blob = new Blob([JSON.stringify(this.state.data)], {type: "application/json"});
+		var blob = new Blob([JSON.stringify(this.state.drugData)], {type: "application/json"});
 		const saveToName = this.state.saveName;
-		const searchName = this.state.search;
+		const searchName = this.state.drugSearch;
 		if (saveToName.length > 0 && searchName.length > 0){
 			fileSaver.saveAs(blob, saveToName + ".json")
 		} else if (saveToName.length == 0 && searchName.length > 0) 
@@ -139,8 +146,9 @@ class App extends React.Component {
 				<div id="siteHeader">
 					<button name="drugTableWindow" id="drugTableBtn" onClick={this.showElement}>Drug Table</button>
 					<button name="companyWindow" id="companyBtn" onClick={this.showElement}>Companies</button>
-					<button name="diseaseWindow" id="diseaseBtn">Diseases & Indicated Drugs</button>
+					<button name="diseaseWindow" id="diseaseBtn" onClick = {this.showElement}>Diseases & Indicated Drugs</button>
 					<button name="databankWindow" id="databankBtn" onClick={this.showElement}>Databank</button>
+					<button name="newsWindow" id = "newsBtn">News</button>
 					<button name="blogWindow" id="blogBtn" onClick={this.showElement}>My Blog</button>
 				</div> 
 
@@ -159,6 +167,10 @@ class App extends React.Component {
 					{<DrugsOfCompany data={this.state.drugsOfCompany} companyDrugs={this.companyDrugs}></DrugsOfCompany>}
 				</div>
 
+				<div id="diseaseWindow">
+					{<DiseaseTable data = {this.state.diseases}></DiseaseTable>}
+				</div>
+
 				<div id="databankWindow">
 					<button name="drugDataBtn">Drug Data</button>
 					<button name="companyDataBtn">Company Data</button>
@@ -172,5 +184,7 @@ class App extends React.Component {
 		);
 	}
 }
+
+
 
 export default App;
