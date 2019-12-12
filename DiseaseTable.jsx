@@ -24,22 +24,16 @@ class DiseaseTable extends React.Component {
                 </table>
 				<table>
 					<tbody>
-						{this.props.data.dataToShow ?
-                            (<tr>
-                                <td>#</td>
-                                <td>Names</td>
-                                <td>Trade Names approved</td>
-                                <td>Substances approved</td>
-						    </tr>)
-                            : (<tr>
-                                <td>#</td>
-                                <td>Company</td>
-                                <td>Generic Name</td>
-                                <td>Trade Name</td>
-                                <td>Established Pharmacologic Class(es)</td>
-                                <td>FDALabel Link</td>
-                            </tr>)
-                        }
+						<tr>
+                            <td>#</td>
+                            <td>Company</td>
+                            <td>Generic Name</td>
+                            <td>Trade Name</td>
+                            <td>Established Pharmacologic Class(es)</td>
+                            <td>Label Link</td>
+                            <td>Therapeutic area</td>
+                            <td>Indication</td>
+                        </tr>
                         {this.props.data.diseases.map((disease,i) => <DiseaseTableRow filter={this.props.data.dataToShow}
                         key={i} data={disease} id={i+1}/>)}
 					</tbody>
@@ -56,9 +50,15 @@ class DiseaseTableRow extends React.Component {
             return (
                 <tr>
                     <td>{this.props.id}</td>
-                    <td>{this.props.data.disease}</td>
-                    <td>{addSpacing(this.props.data.drugNames)}</td>
-                    <td>{addSpacing(this.props.data.drugSubstance)}</td>
+                    <td>{this.props.data["Marketing authorisation holder/company name"]}</td>
+                    <td>{this.props.data["International non-proprietary name (INN) / common name"]}</td>
+                    <td>{this.props.data["Medicine name"]}</td>
+                    <td>{this.props.data["Human pharmacotherapeutic group"]}</td>
+                    <td><a href={this.props.data["URL"]}>Url</a></td>
+                    <td>{this.props.data["Therapeutic area"]}</td>
+                    <td>{this.props.data["Condition / indication"]}</td>
+                    {/*<td>{addSpacing(this.props.data.drugNames)}</td>
+                    <td>{addSpacing(this.props.data.drugSubstance)}</td>*/}
                 </tr>	
             );
         } else {

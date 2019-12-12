@@ -7,7 +7,7 @@ import DiseaseTable from './DiseaseTable.jsx';
 
 let data = require('../database.json');
 let blogs = require('./blogs.json');
-let EMAdiseases = require('./diseaseData');
+let EMAdiseases = require('./EMALabels');
 let FDAdiseases = require('./FDALabels');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 let companyData = require('./companyOverview.json');
@@ -43,7 +43,7 @@ class App extends React.Component {
 			hideDatabase: "Hide database",
 			diseases: EMAdiseases, 
 			diseaseSearch: "",
-			dataToShow: true,
+			dataToShow: "",
 			saveName: "",
 			blogs: blogs.reverse(),
 			window: {drugTableWindow: "Hide", blogWindow: "Show", diseaseWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
@@ -94,7 +94,8 @@ class App extends React.Component {
 			var stringOfData = "";
 			if (this.state.dataToShow == true){
 				for (var k in diseases){
-					stringOfData = diseases[k].disease.toLowerCase();
+					stringOfData = (diseases[k]["Therapeutic area"] + diseases[k]["Condition / indication"] + 
+					diseases[k]["Marketing authorisation holder/company name"] + diseases[k]["Medicine name"]).toLowerCase();
 					if (stringOfData.indexOf(toFind) !== -1){newDiseaseList.push(diseases[k])}
 				}}
 			else {
