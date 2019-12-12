@@ -40,7 +40,8 @@ class App extends React.Component {
 			drugSearch: "",
 			companySearch: "",
 			hideDatabase: "Hide database",
-			diseases: diseaseData,
+			diseases: diseaseData, 
+			diseaseSearch: "",
 			saveName: "",
 			blogs: blogs.reverse(),
 			window: {drugTableWindow: "Hide", blogWindow: "Show", diseaseWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
@@ -80,6 +81,21 @@ class App extends React.Component {
 			}
 			this.setState({companyData:newCompanyList})
 		} else{this.setState({companyData:companyData})}
+	}
+
+	searchDisease = event => {
+		this.setState({ diseaseSearch: event.target.value});
+		var toFind = (this.state.diseaseSearch).toLowerCase();
+		if (toFind != ""){
+			var diseases = diseaseData//this.state.diseases;
+			var newDiseaseList = [];
+			var stringOfData = "";
+			for (var k in diseases){
+				stringOfData = diseases[k].disease.toLowerCase();
+				if (stringOfData.indexOf(toFind) !== -1){newDiseaseList.push(diseases[k])}
+			}
+			this.setState({ diseases: newDiseaseList});
+		} else{this.setState({ diseases: diseaseData})}
 	}
 
 	saveData = event => { //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
@@ -168,7 +184,7 @@ class App extends React.Component {
 				</div>
 
 				<div id="diseaseWindow">
-					{<DiseaseTable data = {this.state.diseases}></DiseaseTable>}
+					{<DiseaseTable data = {this.state} searchDisease = {this.searchDisease}></DiseaseTable>}
 				</div>
 
 				<div id="databankWindow">
