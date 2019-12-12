@@ -8,6 +8,7 @@ import DiseaseTable from './DiseaseTable.jsx';
 let data = require('../database.json');
 let blogs = require('./blogs.json');
 let EMAdiseases = require('./diseaseData');
+let FDAdiseases = require('./FDALabels');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 let companyData = require('./companyOverview.json');
 var fileSaver = require('file-saver'); 
@@ -42,7 +43,7 @@ class App extends React.Component {
 			hideDatabase: "Hide database",
 			diseases: EMAdiseases, 
 			diseaseSearch: "",
-			dataToShow: "EMA",
+			dataToShow: true,
 			saveName: "",
 			blogs: blogs.reverse(),
 			window: {drugTableWindow: "Hide", blogWindow: "Show", diseaseWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
@@ -91,12 +92,20 @@ class App extends React.Component {
 			var diseases = this.state.diseases//this.state.diseases;
 			var newDiseaseList = [];
 			var stringOfData = "";
-			for (var k in diseases){
-				stringOfData = diseases[k].disease.toLowerCase();
-				if (stringOfData.indexOf(toFind) !== -1){newDiseaseList.push(diseases[k])}
-			}
+			if (this.state.dataToShow == true){
+				for (var k in diseases){
+					stringOfData = diseases[k].disease.toLowerCase();
+					if (stringOfData.indexOf(toFind) !== -1){newDiseaseList.push(diseases[k])}
+				}}
+			else {
+				for (var k in diseases){
+					stringOfData = (diseases[k].Company + diseases[k]["Active Ingredient(s)"] + diseases[k]["Trade Name"]).toLowerCase();
+					if (stringOfData.indexOf(toFind) !== -1){newDiseaseList.push(diseases[k])}
+				}
+			}	
 			this.setState({ diseases: newDiseaseList});
-		} else{this.setState({ diseases: EMAdiseases})}
+		} else if (this.state.dataToShow == true){this.setState({ diseases: EMAdiseases})}
+		else {this.setState({ diseases: FDAdiseases})}
 	}
 
 	saveData = event => { //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
@@ -159,8 +168,8 @@ class App extends React.Component {
 
 	changeDiseases = event => {
 		var dataToShow = event.target.name;
-		if (dataToShow == "EMAbutton"){this.setState ({ diseases: EMAdiseases})}
-		else if (dataToShow == "FDAbutton"){console.log("No FDA data exists")}
+		if (dataToShow == "EMAbutton") {this.setState ({ diseases: EMAdiseases, dataToShow: true})}
+		else if (dataToShow == "FDAbutton"){this.setState({ diseases: FDAdiseases, dataToShow: false})}
 	}
 
 
