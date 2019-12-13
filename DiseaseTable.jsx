@@ -15,7 +15,8 @@ class DiseaseTable extends React.Component {
                     <tbody>
                         <tr>
                             <td><label>Search: <input type="text" name="diseaseSearch" 
-                            value={this.props.data.diseaseSearch} onChange={this.props.searchDisease}/></label></td>
+                            value={this.props.data.diseaseSearch} onChange={this.props.searchLabel}/></label></td>
+                            <td><button name="searchDiseasesButton" onClick={this.props.searchDisease}>Click</button></td>
                             <td><button name="EMAbutton" onClick={this.props.changeDiseases}>EMA</button></td>
                             <td><button name="FDAbutton" onClick={this.props.changeDiseases}>FDA</button></td>
                         </tr>
@@ -33,6 +34,7 @@ class DiseaseTable extends React.Component {
                             <td>Label Link</td>
                             <td>Therapeutic area</td>
                             <td>Indication</td>
+                            <td>Approval Date</td>
                         </tr>
                         {this.props.data.diseases.map((disease,i) => <DiseaseTableRow filter={this.props.data.dataToShow}
                         key={i} data={disease} id={i+1}/>)}
@@ -57,6 +59,7 @@ class DiseaseTableRow extends React.Component {
                     <td><a href={this.props.data["URL"]}>Url</a></td>
                     <td>{this.props.data["Therapeutic area"]}</td>
                     <td>{this.props.data["Condition / indication"]}</td>
+                    <td>{this.props.data["Marketing authorisation date"]}</td>
                     {/*<td>{addSpacing(this.props.data.drugNames)}</td>
                     <td>{addSpacing(this.props.data.drugSubstance)}</td>*/}
                 </tr>	

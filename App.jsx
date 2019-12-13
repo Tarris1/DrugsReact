@@ -13,9 +13,6 @@ let paragraphs = require('../paragraphs_two.json'); //not sure why regular parag
 let companyData = require('./companyOverview.json');
 var fileSaver = require('file-saver'); 
 
-var categoriesOfDisease = ["Cardiovascular/Metabolic", "Pulmology", "Neuroscience", "CNS",
- "Obstetrics/Gynaecology", "Hematology", "Rheumatology", "Oncology", "Endocrinology","Dermatology", "Ophthalmology"]
-
 
 function transferToDict(id) {
 	var dictionary = data['drugs'][id];
@@ -41,9 +38,9 @@ class App extends React.Component {
 			drugSearch: "",
 			companySearch: "",
 			hideDatabase: "Hide database",
-			diseases: EMAdiseases, 
+			diseases: [],//EMAdiseases, 
 			diseaseSearch: "",
-			dataToShow: "",
+			dataToShow: true,
 			saveName: "",
 			blogs: blogs.reverse(),
 			window: {drugTableWindow: "Hide", blogWindow: "Show", diseaseWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
@@ -86,10 +83,11 @@ class App extends React.Component {
 	}
 
 	searchDisease = event => {
-		this.setState({ diseaseSearch: event.target.value});
+		//this.setState({ diseaseSearch: event.target.value});
 		var toFind = (this.state.diseaseSearch).toLowerCase();
 		if (toFind != ""){
-			var diseases = this.state.diseases//this.state.diseases;
+			var diseases
+			this.state.dataToShow ? (diseases = EMAdiseases) : (diseases = FDAdiseases);
 			var newDiseaseList = [];
 			var stringOfData = "";
 			if (this.state.dataToShow == true){
@@ -108,7 +106,7 @@ class App extends React.Component {
 		} else if (this.state.dataToShow == true){this.setState({ diseases: EMAdiseases})}
 		else {this.setState({ diseases: FDAdiseases})}
 	}
-
+	searchLabel = event => { this.setState({ diseaseSearch: event.target.value});}
 	saveData = event => { //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
 		var blob = new Blob([JSON.stringify(this.state.drugData)], {type: "application/json"});
 		const saveToName = this.state.saveName;
@@ -125,8 +123,8 @@ class App extends React.Component {
 	hideTable = event => { //Hides the table
 		//console.log(this.state.hideDatabase);
 		if(this.state.hideDatabase == "Unhide database") {
-			this.setState({data: listOfDrugs, hideDatabase: "Hide database"})
-		} else {this.setState({ data: [], hideDatabase: "Unhide database"})}
+			this.setState({ drugData: listOfDrugs, hideDatabase: "Hide database"})
+		} else {this.setState({ drugData: [], hideDatabase: "Unhide database"})}
 	}
 
 	showElement = event => {
@@ -181,8 +179,8 @@ class App extends React.Component {
 					<button name="drugTableWindow" id="drugTableBtn" onClick={this.showElement}>Drug Table</button>
 					<button name="companyWindow" id="companyBtn" onClick={this.showElement}>Companies</button>
 					<button name="diseaseWindow" id="diseaseBtn" onClick = {this.showElement}>Diseases & Indicated Drugs</button>
-					<button name="databankWindow" id="databankBtn" onClick={this.showElement}>Databank</button>
 					<button name="newsWindow" id = "newsBtn">News</button>
+					<button name="databankWindow" id="databankBtn" onClick={this.showElement}>Databank</button>
 					<button name="blogWindow" id="blogBtn" onClick={this.showElement}>My Blog</button>
 				</div> 
 
@@ -203,13 +201,13 @@ class App extends React.Component {
 
 				<div id="diseaseWindow">
 					{<DiseaseTable data={this.state} searchDisease={this.searchDisease} 
-					changeDiseases={this.changeDiseases}></DiseaseTable>}
+					changeDiseases={this.changeDiseases} searchLabel={this.searchLabel}></DiseaseTable>}
 				</div>
 
 				<div id="databankWindow">
-					<button name="drugDataBtn">Drug Data</button>
-					<button name="companyDataBtn">Company Data</button>
-					<button name="diseaseDataBtn">Disease Data</button>
+					<li><button name="drugDataBtn">Drug Data</button></li>
+					<li><button name="companyDataBtn">Company Data</button></li>
+					<li><button name="diseaseDataBtn">Disease Data</button></li>
 				</div>
 
 				<div id="blogWindow">
