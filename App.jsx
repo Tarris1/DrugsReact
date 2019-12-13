@@ -83,7 +83,6 @@ class App extends React.Component {
 	}
 
 	searchDisease = event => {
-		//this.setState({ diseaseSearch: event.target.value});
 		var toFind = (this.state.diseaseSearch).toLowerCase();
 		if (toFind != ""){
 			var diseases
@@ -106,7 +105,9 @@ class App extends React.Component {
 		} else if (this.state.dataToShow == true){this.setState({ diseases: EMAdiseases})}
 		else {this.setState({ diseases: FDAdiseases})}
 	}
+
 	searchLabel = event => { this.setState({ diseaseSearch: event.target.value});}
+
 	saveData = event => { //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
 		var blob = new Blob([JSON.stringify(this.state.drugData)], {type: "application/json"});
 		const saveToName = this.state.saveName;
@@ -121,7 +122,6 @@ class App extends React.Component {
 	changeSaveDataName = event => {this.setState({ saveName: event.target.value})} //Changes the save data label
 	
 	hideTable = event => { //Hides the table
-		//console.log(this.state.hideDatabase);
 		if(this.state.hideDatabase == "Unhide database") {
 			this.setState({ drugData: listOfDrugs, hideDatabase: "Hide database"})
 		} else {this.setState({ drugData: [], hideDatabase: "Unhide database"})}
@@ -156,7 +156,7 @@ class App extends React.Component {
 			var drugs = JSON.parse(event.target.value);
 			drugsOfCompany['drugs'] = drugs
 			drugsOfCompany['name'] = buttonName
-			this.setState({drugsOfCompany:drugsOfCompany});
+			this.setState({ drugsOfCompany: drugsOfCompany});
 			document.getElementById("companyWindow").style.display = 'none';
 			document.getElementById("drugsOfCompanyWindow").style.display = "inline";
 		} else {
@@ -169,6 +169,7 @@ class App extends React.Component {
 		var dataToShow = event.target.name;
 		if (dataToShow == "EMAbutton") {this.setState ({ diseases: EMAdiseases, dataToShow: true})}
 		else if (dataToShow == "FDAbutton"){this.setState({ diseases: FDAdiseases, dataToShow: false})}
+		else if (dataToShow == "clearButton"){this.setState({ diseases: []})}
 	}
 
 
@@ -190,7 +191,6 @@ class App extends React.Component {
 				</div>
 
 				<div id="companyWindow">
-					
 					{<CompanyOverview data={this.state} searchCompany={this.searchCompany} 
 					companyDrugs={this.companyDrugs}></CompanyOverview>}
 				</div>
@@ -213,11 +213,20 @@ class App extends React.Component {
 				<div id="blogWindow">
 					{<Blog data={this.state.blogs}></Blog>}
 				</div>
+
+				<div id="footer">
+					<table>
+						<tbody>
+							<tr>
+								<td>Contacts: x@email.com</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
 			</div>
 		);
 	}
 }
-
-
 
 export default App;

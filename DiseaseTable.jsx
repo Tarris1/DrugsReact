@@ -14,11 +14,12 @@ class DiseaseTable extends React.Component {
                 <table>
                     <tbody>
                         <tr>
-                            <td><label>Search: <input type="text" name="diseaseSearch" 
+                            <td><label><input type="text" name="diseaseSearch" 
                             value={this.props.data.diseaseSearch} onChange={this.props.searchLabel}/></label></td>
-                            <td><button name="searchDiseasesButton" onClick={this.props.searchDisease}>Click</button></td>
+                            <td><button name="searchDiseasesButton" onClick={this.props.searchDisease}>Search</button></td>
                             <td><button name="EMAbutton" onClick={this.props.changeDiseases}>EMA</button></td>
                             <td><button name="FDAbutton" onClick={this.props.changeDiseases}>FDA</button></td>
+                            <td><button name="clearButton" onClick={this.props.changeDiseases}>Clear</button></td>
                         </tr>
                         <tr><td><label>{this.props.data.dataToShow ? ("EMA Indications: ") : ("FDA Indications: ")}</label></td></tr>
                     </tbody>

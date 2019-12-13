@@ -16,6 +16,7 @@ td {
 
 #blogWindow, #databankWindow, #companyWindow, #drugsOfCompanyWindow, #diseaseWindow {
   display:none;
+  padding: 10px;
 }
 
 
@@ -31,8 +32,8 @@ button#drugTableBtn, button#blogBtn, button#companyBtn, button#diseaseBtn, butto
 }
 
 
-
-div#siteHeader{
+div#siteHeader, div#footer{
   background-color: white;
   border: 1px solid rgb(121, 121, 121);
+  padding: 2px;
 }
