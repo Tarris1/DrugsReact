@@ -1,6 +1,7 @@
 import React from 'react';
 
 
+
 class Blog extends React.Component {
 	render() {
 		return (
@@ -8,7 +9,7 @@ class Blog extends React.Component {
 				<h1>Welcome to my blog</h1>
 				<p>Introduction</p>
 				
-				{this.props.data.map((blog, blogNumber) => <BlogEntry key = {blog.id} data= {blog}/>)}</div>
+				{this.props.data.map((blog, blogNumber) => <BlogEntry key = {blogNumber} data= {blog}/>)}</div>
 		)
 	}
 }
@@ -20,8 +21,9 @@ class BlogEntry extends React.Component {
 		return (
 			<table>
 				<tbody>
-					<tr><th>{"#"+this.props.data.id+": "+this.props.data.title}</th></tr>
-					<tr><td>{this.props.data.text}</td></tr>
+					{/*<tr><th>{"#"+this.props.data.id+": "+this.props.data.title}</th></tr>
+					<tr><td>{this.props.data.text}</td></tr>*/}
+					<tr><td dangerouslySetInnerHTML={ { __html: this.props.data.text } }></td></tr>
 					<tr><td>{"Author: "+this.props.data.author}</td></tr>
 					<tr><td>{"Date: "+this.props.data.date}</td></tr>
 				</tbody>
@@ -29,5 +31,7 @@ class BlogEntry extends React.Component {
 		);
 	}	
 }
+
+
 
 export default Blog;

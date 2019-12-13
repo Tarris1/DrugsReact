@@ -6,7 +6,8 @@ import DrugsOfCompany from './DrugsOfCompany.jsx';
 import DiseaseTable from './DiseaseTable.jsx';
 
 let data = require('../database.json');
-let blogs = require('./blogs.json');
+//let blogs = require('./blogs.json');
+let blogs = require('./Data/blogs');
 let EMAdiseases = require('./EMALabels');
 let FDAdiseases = require('./FDALabels');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
