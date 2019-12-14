@@ -6,7 +6,6 @@ import DrugsOfCompany from './DrugsOfCompany.jsx';
 import DiseaseTable from './DiseaseTable.jsx';
 
 let data = require('../database.json');
-//let blogs = require('./blogs.json');
 let blogs = require('./Data/blogs');
 let EMAdiseases = require('./EMALabels');
 let FDAdiseases = require('./FDALabels');
@@ -43,7 +42,7 @@ class App extends React.Component {
 			diseaseSearch: "",
 			dataToShow: true,
 			saveName: "",
-			blogs: blogs.reverse(),
+			blogs: {blogData: blogs.reverse(), blogClicked: 1, blogList: false},
 			window: {drugTableWindow: "Hide", blogWindow: "Show", diseaseWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
 			companyData: companyData,
 			drugsOfCompany: {drugs: [], name: ""},
@@ -172,7 +171,20 @@ class App extends React.Component {
 		else if (dataToShow == "FDAbutton"){this.setState({ diseases: FDAdiseases, dataToShow: false})}
 		else if (dataToShow == "clearButton"){this.setState({ diseases: []})}
 	}
+	
+	showBlogText = event => {
+		//const clicked = this.state.blogClicked //Show only the article that is clicked
+		console.log(event.target.name)
+		//if (clicked = event.target.id){
+		//	return <articleText/>;}
+	}
 
+	submitComment = event => {
+		var comment = event.target.data;
+		const blogsData = this.state.blogs
+		blogsData.blogData[this.state.blogs.blogClicked]["comments"].push(comment)
+		this.setState({ blogs: blogsData})
+	}
 
 	render() {
 		return (
@@ -212,7 +224,7 @@ class App extends React.Component {
 				</div>
 
 				<div id="blogWindow">
-					{<Blog data={this.state.blogs}></Blog>}
+					{<Blog data={this.state.blogs} showBlogText={this.showBlogText} submitComment={this.submitComment}></Blog>}
 				</div>
 
 				<div id="footer">
