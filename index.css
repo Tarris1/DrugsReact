@@ -11,14 +11,27 @@ td {
 }
 
 #drugTableWindow{
-  display:inline;
+  display: inline;
 }
 
 #blogWindow, #databankWindow, #companyWindow, #drugsOfCompanyWindow, #diseaseWindow {
-  display:none;
+  display: none;
   padding: 10px;
 }
 
+#blogWindow button, #blogWindow td{
+  border: none;
+  background: white;
+  font-size: 15px;
+}
+
+#blogWindow td#blogText table {
+  border-collapse: collapse;
+}
+#blogWindow td#blogText table tr, #blogWindow td#blogText table td {
+  border: solid thin;
+  padding: 2px; 
+}
 
 button#drugTableBtn, button#blogBtn, button#companyBtn, button#diseaseBtn, button#databankBtn, button#newsBtn {
   background-color: #08089b;

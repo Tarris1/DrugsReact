@@ -25,6 +25,7 @@ class BlogEntry extends React.Component {
 				<tbody>
 					<tr id="blogTitle"><td><button name={this.props.data.id}>
 						{"#" + this.props.data.id + ": " + this.props.data.title}</button></td></tr>
+					<tr><td>{this.props.submitComment}</td></tr>
 					<tr><td>{"Date: " + this.props.data.date}</td></tr>
 				</tbody>
 			</table>
@@ -44,13 +45,11 @@ class BlogSpecific extends React.Component {
 		return (
 			<table>
 				<tbody>
+					<tr><td><button>Return to blog list</button></td></tr>
 					<tr id="blogTitle"><td>{"#" + this.props.data.id + ": " + this.props.data.title}</td></tr>
-					<tr><td dangerouslySetInnerHTML={ { __html: this.props.data.text } }></td></tr>
-					{this.props.data.comments.map((comment, commentID) => 
-						<tr><td>comment</td></tr>)} {/*Make comments component with date submitted etc*/}
-					<tr><td><textarea placeholder="Write a comment here" type="text" name="comment" onChange={this.changeTextArea}
-						value={this.state.blogComment}></textarea></td>
-					</tr>
+					<tr><td id="blogText" dangerouslySetInnerHTML={ { __html: this.props.data.text } }></td></tr>
+					{this.props.data.comments.map((comment, commentID) => <tr><td>{this.state.blogComment}</td></tr>)}
+					<tr><td><textarea placeholder="Write a comment here" type="text" name="comment" onChange={this.changeTextArea} value={this.state.blogComment}></textarea></td></tr>
 					<tr><td><button data={this.state.blogComment} onClick={this.props.submitComment}>Submit comment</button></td></tr>
 					{/*<tr><td>{"Author: " + this.props.data.author}</td></tr>*/}
 					<tr><td>{"Date: " + this.props.data.date}</td></tr>

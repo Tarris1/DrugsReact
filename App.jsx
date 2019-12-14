@@ -25,6 +25,8 @@ function transferToDict(id) {
 	}
 }
 
+//Make separate blog comments file and combine it here
+
 var listOfDrugs = [];
 for (var n in data['drugs']) {listOfDrugs.push(transferToDict(n))}
 
