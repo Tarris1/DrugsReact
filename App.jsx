@@ -182,10 +182,13 @@ class App extends React.Component {
 	}
 
 	submitComment = event => {
-		var comment = event.target.data;
-		const blogsData = this.state.blogs
-		blogsData.blogData[this.state.blogs.blogClicked]["comments"].push(comment)
-		this.setState({ blogs: blogsData})
+		var newDate = new Date;
+		var text = event.target.value.split(" ");
+		var date = newDate.toString();
+		var comment = {text: text[0], author: text[1], date: date};
+		var newBlogs = this.state.blogs
+		newBlogs.blogData[this.state.blogs.blogClicked].comments.push(comment)
+		this.setState({ blogs: newBlogs})
 	}
 
 	render() {

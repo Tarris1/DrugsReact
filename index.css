@@ -19,7 +19,7 @@ td {
   padding: 10px;
 }
 
-#blogWindow button, #blogWindow td{
+#blogWindow #blogList button, #blogWindow td{
   border: none;
   background: white;
   font-size: 15px;
