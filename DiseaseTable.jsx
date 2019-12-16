@@ -1,13 +1,13 @@
 import React from 'react'
 
-function addSpacing(names){
-    if (Array.isArray(names)){
-        if (names.length>1) {return names.map((name, i) => name + "; ")}
-    } else { return names}
-}
-
-
 class DiseaseTable extends React.Component {
+    constructor(){
+		super();
+		this.state = {
+			search: ""
+		}
+	}
+    changeSearchArea = event => {this.setState({ search: event.target.value})}
 	render() {
 		return (
 			<div>
@@ -15,8 +15,8 @@ class DiseaseTable extends React.Component {
                     <tbody>
                         <tr>
                             <td><label><input type="text" name="diseaseSearch" 
-                            value={this.props.data.diseaseSearch} onChange={this.props.searchLabel}/></label></td>
-                            <td><button name="searchDiseasesButton" onClick={this.props.searchDisease}>Search</button></td>
+                            value={this.state.search} onChange={this.changeSearchArea}/></label></td>
+                            <td><button name="searchDiseasesButton" value={this.state.search} onClick={this.props.searchDisease}>Search</button></td>
                             <td><button name="EMAbutton" onClick={this.props.changeDiseases}>EMA</button></td>
                             <td><button name="FDAbutton" onClick={this.props.changeDiseases}>FDA</button></td>
                             <td><button name="clearButton" onClick={this.props.changeDiseases}>Clear</button></td>
@@ -38,7 +38,7 @@ class DiseaseTable extends React.Component {
                             <td>Approval Date</td>
                         </tr>
                         {this.props.data.diseases.map((disease,i) => <DiseaseTableRow filter={this.props.data.dataToShow}
-                        key={i} data={disease} id={i+1}/>)}
+                            key={i} data={disease} id={i+1}/>)}
 					</tbody>
 				</table>
 			</div>

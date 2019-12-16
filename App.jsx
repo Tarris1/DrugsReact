@@ -85,7 +85,8 @@ class App extends React.Component {
 	}
 
 	searchDisease = event => {
-		var toFind = (this.state.diseaseSearch).toLowerCase();
+		//var toFind = (this.state.diseaseSearch).toLowerCase();
+		var toFind = (event.target.value).toLowerCase();
 		if (toFind != ""){
 			var diseases
 			this.state.dataToShow ? (diseases = EMAdiseases) : (diseases = FDAdiseases);
@@ -134,6 +135,7 @@ class App extends React.Component {
 		var newState = this.state.window; //Copy of button data
 		var nameOfElement = event.target.name; //Name of element to hide/show
 		var windowsToClose = Object.keys(this.state.window); //All elements that can be hidden/shown
+		document.getElementById("drugsOfCompanyWindow").style.display = "none"
 		if (this.state.window[nameOfElement] == "Show"){
 			for (var n in windowsToClose){
 				var other = windowsToClose[n]
