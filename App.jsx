@@ -4,6 +4,7 @@ import DrugTable from './DrugTable.jsx'; //Import 'DrugTable component
 import CompanyOverview from './CompanyOverview.jsx';
 import DrugsOfCompany from './DrugsOfCompany.jsx';
 import DiseaseTable from './DiseaseTable.jsx';
+import DiseaseSearchWindow from './DiseaseSearchWindow.jsx';
 
 let data = require('../database.json');
 let blogs = require('./Data/blogs');
@@ -11,6 +12,7 @@ let EMAdiseases = require('./EMALabels');
 let FDAdiseases = require('./FDALabels');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 let companyData = require('./companyOverview.json');
+let diseaseList = require('./Data/trials/diseaselist.json');
 var fileSaver = require('file-saver'); 
 
 
@@ -31,12 +33,10 @@ function compareValues(key, order = 'asc') {
 		// property doesn't exist on either object
 		return 0;
 	  }
-  
 	  const varA = (typeof a[key] === 'string')
 		? a[key].toUpperCase() : a[key];
 	  const varB = (typeof b[key] === 'string')
 		? b[key].toUpperCase() : b[key];
-  
 	  let comparison = 0;
 	  if (varA > varB) {
 		comparison = 1;
@@ -66,6 +66,7 @@ class App extends React.Component {
 			sortOrder: "desc",
 			hideDatabase: "Hide database",
 			diseases: [],//EMAdiseases, 
+			diseaseList: diseaseList,
 			dataToShow: true,
 			saveName: "",
 			blogs: {blogData: blogs.reverse(), blogClicked: 1, blogList: false},
@@ -253,8 +254,7 @@ class App extends React.Component {
 				</div>
 
 				<div id="diseaseWindow">
-					{<DiseaseTable data={this.state} searchDisease={this.searchDisease} 
-					changeDiseases={this.changeDiseases} searchLabel={this.searchLabel}></DiseaseTable>}
+					{<DiseaseSearchWindow data={this.state.diseaseList}></DiseaseSearchWindow>}
 				</div>
 
 				<div id="databankWindow">
@@ -282,4 +282,7 @@ class App extends React.Component {
 	}
 }
 
+
+//{<DiseaseTable data={this.state} searchDisease={this.searchDisease} 
+//					changeDiseases={this.changeDiseases} searchLabel={this.searchLabel}></DiseaseTable>}
 export default App;

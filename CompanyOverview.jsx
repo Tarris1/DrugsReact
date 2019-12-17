@@ -24,7 +24,7 @@ class CompanyOverview extends React.Component{
                     <tbody>
                         <tr>
                             <td onClick={() => this.props.sortCompany("id")}>#</td>
-                            <td>Name</td>
+                            <td onClick={() => this.props.sortCompany("name")}>Name</td>
                             <td onClick={() => this.props.sortCompany("ticker")}>Ticker</td>
                             <td onClick={() => this.props.sortCompany("exchange")}>Exchange</td>
                             <td onClick={() => this.props.sortCompany("price")}>Price</td>
