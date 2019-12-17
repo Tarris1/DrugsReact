@@ -25,6 +25,30 @@ function transferToDict(id) {
 	}
 }
 
+function compareValues(key, order = 'asc') {
+	return function innerSort(a, b) {
+	  if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+		// property doesn't exist on either object
+		return 0;
+	  }
+  
+	  const varA = (typeof a[key] === 'string')
+		? a[key].toUpperCase() : a[key];
+	  const varB = (typeof b[key] === 'string')
+		? b[key].toUpperCase() : b[key];
+  
+	  let comparison = 0;
+	  if (varA > varB) {
+		comparison = 1;
+	  } else if (varA < varB) {
+		comparison = -1;
+	  }
+	  return (
+		(order === 'desc') ? (comparison * -1) : comparison
+	  );
+	};
+  }
+
 //Make separate blog comments file and combine it here
 
 var listOfDrugs = [];
@@ -39,9 +63,9 @@ class App extends React.Component {
 			paragraph: paragraphs,
 			drugSearch: "",
 			companySearch: "",
+			sortOrder: "desc",
 			hideDatabase: "Hide database",
 			diseases: [],//EMAdiseases, 
-			diseaseSearch: "",
 			dataToShow: true,
 			saveName: "",
 			blogs: {blogData: blogs.reverse(), blogClicked: 1, blogList: false},
@@ -85,7 +109,6 @@ class App extends React.Component {
 	}
 
 	searchDisease = event => {
-		//var toFind = (this.state.diseaseSearch).toLowerCase();
 		var toFind = (event.target.value).toLowerCase();
 		if (toFind != ""){
 			var diseases
@@ -193,6 +216,16 @@ class App extends React.Component {
 		this.setState({ blogs: newBlogs})
 	}
 
+	sortCompany = event => {
+		var sortBy = event;
+		var companies = this.state.companyData;
+		var order = this.state.sortOrder;
+		if (order == "desc") {this.setState( {sortOrder: "asc"})}
+		else {this.setState ({ sortOrder: "desc"})}
+		companies = companies.sort(compareValues(sortBy, order = order));
+		this.setState({ companyData: companies})
+	}
+
 	render() {
 		return (
 			<div>
@@ -212,7 +245,7 @@ class App extends React.Component {
 
 				<div id="companyWindow">
 					{<CompanyOverview data={this.state} searchCompany={this.searchCompany} 
-					companyDrugs={this.companyDrugs}></CompanyOverview>}
+					companyDrugs={this.companyDrugs} sortCompany={this.sortCompany}></CompanyOverview>}
 				</div>
 
 				<div id="drugsOfCompanyWindow">

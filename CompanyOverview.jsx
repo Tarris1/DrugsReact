@@ -4,7 +4,7 @@ var digits = 2;
 function numberFormatting(number, digits = digits) {
     if (number.length!=0){ //Checks if its actually a number
         var newNumber = new Intl.NumberFormat('ja-JP', {maximumFractionDigits: digits }).format(number);
-        return ("$"+newNumber)}
+        return (newNumber)}
     else{return number};
 }
 
@@ -23,14 +23,14 @@ class CompanyOverview extends React.Component{
                 <table id="CompanyTable">
                     <tbody>
                         <tr>
-                            <td>#</td>
+                            <td onClick={() => this.props.sortCompany("id")}>#</td>
                             <td>Name</td>
-                            <td>Ticker</td>
-                            <td>Exchange</td>
-                            <td>Price</td>
-                            <td>Shares</td>
-                            <td>Market Cap.</td>
-                            <td>Quarterly Revenue</td>
+                            <td onClick={() => this.props.sortCompany("ticker")}>Ticker</td>
+                            <td onClick={() => this.props.sortCompany("exchange")}>Exchange</td>
+                            <td onClick={() => this.props.sortCompany("price")}>Price</td>
+                            <td onClick={() => this.props.sortCompany("shares")}>Shares</td>
+                            <td onClick={() => this.props.sortCompany("marketCap")}>Market Cap.</td>
+                            <td onClick={() => this.props.sortCompany("quarterly")}>Quarterly Revenue</td>
                             <td>Drugs</td>
                             <td>Specialization</td>
                             <td>Press Releases</td>
@@ -55,10 +55,10 @@ class CompanyRow extends React.Component {
 				<td>{this.props.data.name}</td>
 				<td><a href = {"https://www.google.com/search?q=" + this.props.data.exchange + ":" + this.props.data.ticker}>{this.props.data.ticker}</a></td>
 				<td>{this.props.data.exchange}</td>
-				<td>{numberFormatting(this.props.data.price)}</td>
+				<td>{"$" + numberFormatting(this.props.data.price)}</td>
 				<td>{numberFormatting(this.props.data.shares, digits = 0)}</td>
-				<td>{numberFormatting(this.props.data.marketCap, digits = 0)}</td>
-				<td>{numberFormatting(this.props.data.quarterly, digits = 0)}</td>
+				<td>{"$" + numberFormatting(this.props.data.marketCap, digits = 0)}</td>
+				<td>{"$" + numberFormatting(this.props.data.quarterly, digits = 0)}</td>
                 <td><button name={this.props.data.name} value={JSON.stringify(this.props.data.drugs)} onClick={this.props.companyDrugs}>Products</button></td>
 				<td>{this.props.data.specialization}</td>
 				<td><a href={this.props.data.pressReleases}>Link</a></td>
