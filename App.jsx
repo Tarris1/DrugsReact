@@ -12,9 +12,12 @@ let EMAdiseases = require('./EMALabels');
 let FDAdiseases = require('./FDALabels');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 let companyData = require('./companyOverview.json');
-let diseaseList = require('./Data/trials/diseaselist.json');
+//let diseaseList = require('./Data/trials/diseaselist.json');
+let trials = require('./Data/trials/diseaseandtrials.json');
 var fileSaver = require('file-saver'); 
 
+let diseaseList = Object.keys(trials);
+//console.log(diseaseList);
 
 function transferToDict(id) {
 	var dictionary = data['drugs'][id];
@@ -67,6 +70,7 @@ class App extends React.Component {
 			hideDatabase: "Hide database",
 			diseases: [],//EMAdiseases, 
 			diseaseList: diseaseList,
+			trials: trials,
 			dataToShow: true,
 			saveName: "",
 			blogs: {blogData: blogs.reverse(), blogClicked: 1, blogList: false},
@@ -254,7 +258,7 @@ class App extends React.Component {
 				</div>
 
 				<div id="diseaseWindow">
-					{<DiseaseSearchWindow data={this.state.diseaseList}></DiseaseSearchWindow>}
+					{<DiseaseSearchWindow data={this.state}></DiseaseSearchWindow>}
 				</div>
 
 				<div id="databankWindow">
