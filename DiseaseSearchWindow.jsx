@@ -1,4 +1,6 @@
 import React from 'react';
+//let diseaseList = require('./Data/trials/diseaselist.json');
+//let trials = require('./Data/trials/diseaseandtrials.json');
 
 function listToString(string){
     if (typeof string == "object"){
@@ -43,8 +45,8 @@ class DiseaseSearchWindow extends React.Component {
         var diseaseName = event
         this.setState( {diseaseName: diseaseName})
         if (diseaseName in this.props.data.trials){
-            const trialsOfDisease = this.props.data.trials[diseaseName]
-            const interventionsOfDisease = this.props.data.interventions[diseaseName]
+            const trialsOfDisease = trials[diseaseName]
+            const interventionsOfDisease = interventions[diseaseName]
             this.setState({ trials: trialsOfDisease, interventions: interventionsOfDisease})}
         if (this.state.showSearch == true) {this.setState({ showSearch: false})}
     }
@@ -76,7 +78,7 @@ class TrialsTable extends React.Component {
                 <table>
                     <tbody>
                         <tr><td><button onClick={this.props.returnToSearch}>Return</button></td></tr>
-                        <tr><td>Unique interventions: {listToString(this.props.data.interventions)}</td></tr>
+                        <tr><td>{/*Unique interventions: {listToString(this.props.data.interventions)}*/}</td></tr>
                         <tr><td>Trials for {this.props.data.diseaseName}: </td></tr>
                     </tbody>
                 </table>

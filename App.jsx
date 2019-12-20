@@ -13,11 +13,11 @@ let FDAdiseases = require('./FDALabels');
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 let companyData = require('./companyOverview.json');
 //let diseaseList = require('./Data/trials/diseaselist.json');
-let trials = require('./Data/trials/diseaseandtrials.json');
-let interventions = require('./Data/trials/interventions.json');
+//let trials = require('./Data/trials/diseaseandtrials.json');
+//let interventions = require('./Data/trials/interventions.json');
 var fileSaver = require('file-saver'); 
 
-let diseaseList = Object.keys(trials);
+//let diseaseList = Object.keys(trials);
 //console.log(diseaseList);
 
 function transferToDict(id) {
@@ -70,9 +70,9 @@ class App extends React.Component {
 			sortOrder: "desc",
 			hideDatabase: "Hide database",
 			diseases: [],//EMAdiseases, 
-			diseaseList: diseaseList,
-			trials: trials,
-			interventions: interventions,
+			//diseaseList: diseaseList,
+			//trials: trials,
+			//interventions: interventions,
 			dataToShow: true,
 			saveName: "",
 			blogs: {blogData: blogs.reverse(), blogClicked: 1, blogList: false},
@@ -208,7 +208,7 @@ class App extends React.Component {
 	
 	showBlogText = event => {
 		//const clicked = this.state.blogClicked //Show only the article that is clicked
-		console.log(event.target.name)
+		console.log(event)
 		//if (clicked = event.target.id){
 		//	return <articleText/>;}
 	}
@@ -260,7 +260,7 @@ class App extends React.Component {
 				</div>
 
 				<div id="diseaseWindow">
-					{<DiseaseSearchWindow data={this.state}></DiseaseSearchWindow>}
+					{/*<DiseaseSearchWindow data={this.state}></DiseaseSearchWindow>*/}
 				</div>
 
 				<div id="databankWindow">
