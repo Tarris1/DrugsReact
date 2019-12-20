@@ -14,6 +14,7 @@ let paragraphs = require('../paragraphs_two.json'); //not sure why regular parag
 let companyData = require('./companyOverview.json');
 //let diseaseList = require('./Data/trials/diseaselist.json');
 let trials = require('./Data/trials/diseaseandtrials.json');
+let interventions = require('./Data/trials/interventions.json');
 var fileSaver = require('file-saver'); 
 
 let diseaseList = Object.keys(trials);
@@ -71,6 +72,7 @@ class App extends React.Component {
 			diseases: [],//EMAdiseases, 
 			diseaseList: diseaseList,
 			trials: trials,
+			interventions: interventions,
 			dataToShow: true,
 			saveName: "",
 			blogs: {blogData: blogs.reverse(), blogClicked: 1, blogList: false},

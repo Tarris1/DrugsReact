@@ -20,6 +20,7 @@ class DiseaseSearchWindow extends React.Component {
             searchResults: [],
             showSearch: true,
             trials: [0],
+            interventions: [0],
             diseaseName: ""
 		}
 	}
@@ -43,7 +44,8 @@ class DiseaseSearchWindow extends React.Component {
         this.setState( {diseaseName: diseaseName})
         if (diseaseName in this.props.data.trials){
             const trialsOfDisease = this.props.data.trials[diseaseName]
-            this.setState({ trials: trialsOfDisease})}
+            const interventionsOfDisease = this.props.data.interventions[diseaseName]
+            this.setState({ trials: trialsOfDisease, interventions: interventionsOfDisease})}
         if (this.state.showSearch == true) {this.setState({ showSearch: false})}
     }
     returnToSearch = event => {this.setState({ showSearch: true})}
@@ -74,6 +76,7 @@ class TrialsTable extends React.Component {
                 <table>
                     <tbody>
                         <tr><td><button onClick={this.props.returnToSearch}>Return</button></td></tr>
+                        <tr><td>Unique interventions: {listToString(this.props.data.interventions)}</td></tr>
                         <tr><td>Trials for {this.props.data.diseaseName}: </td></tr>
                     </tbody>
                 </table>
