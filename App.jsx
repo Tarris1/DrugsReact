@@ -75,7 +75,7 @@ class App extends React.Component {
 			//interventions: interventions,
 			dataToShow: true,
 			saveName: "",
-			blogs: {blogData: blogs.reverse(), blogClicked: 1, blogList: false},
+			blogs: {blogData: blogs, blogClicked: 1, blogList: true},
 			window: {drugTableWindow: "Hide", blogWindow: "Show", diseaseWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
 			companyData: companyData,
 			drugsOfCompany: {drugs: [], name: ""},
@@ -207,10 +207,14 @@ class App extends React.Component {
 	}
 	
 	showBlogText = event => {
-		//const clicked = this.state.blogClicked //Show only the article that is clicked
-		console.log(event)
-		//if (clicked = event.target.id){
-		//	return <articleText/>;}
+		const clicked = event.target.name
+		console.log(clicked)
+		var blogsCopy = this.state.blogs
+		blogsCopy["blogClicked"] = clicked
+		if (blogsCopy.blogList == false) { blogsCopy.blogList = true}
+		else { blogsCopy.blogList = false}
+		this.setState({ blogs: blogsCopy})
+		
 	}
 
 	submitComment = event => {
@@ -219,7 +223,9 @@ class App extends React.Component {
 		var date = newDate.toString();
 		var comment = {text: text[0], author: text[1], date: date};
 		var newBlogs = this.state.blogs
-		newBlogs.blogData[this.state.blogs.blogClicked].comments.push(comment)
+		const blogClicked = this.state.blogs.blogClicked
+		newBlogs.blogData[blogClicked].comments.push(comment)
+		console.log(newBlogs)
 		this.setState({ blogs: newBlogs})
 	}
 
