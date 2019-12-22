@@ -44,11 +44,14 @@ class DiseaseSearchWindow extends React.Component {
     diseaseTrials = event => {
         var diseaseName = event
         this.setState( {diseaseName: diseaseName})
+        console.log(diseaseName)
+        /*var trials = require('./Data/trials/diseaseandtrials.json');
         if (diseaseName in this.props.data.trials){
             const trialsOfDisease = trials[diseaseName]
+            trials = {}
             const interventionsOfDisease = interventions[diseaseName]
             this.setState({ trials: trialsOfDisease, interventions: interventionsOfDisease})}
-        if (this.state.showSearch == true) {this.setState({ showSearch: false})}
+        if (this.state.showSearch == true) {this.setState({ showSearch: false})}*/
     }
     returnToSearch = event => {this.setState({ showSearch: true})}
     

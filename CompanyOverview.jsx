@@ -8,9 +8,25 @@ function numberFormatting(number, digits = digits) {
     else{return number};
 }
 
-class CompanyOverview extends React.Component{
+class CompanyOverview extends React.Component {
 	render() {
 		return (
+            <div>
+               {this.props.data.showCompanies ?
+                 (<CompanyTable data={this.props.data} searchCompany={this.props.searchCompany} 
+                    companyDrugs={this.props.companyDrugs} sortCompany={this.props.sortCompany}></CompanyTable>)
+                :
+                (<DrugsOfCompany data={this.props.data} companyDrugs={this.props.companyDrugs}></DrugsOfCompany>)
+                
+                }
+            </div>
+		)
+	}
+}
+
+class CompanyTable extends React.Component {
+    render() {
+        return (
             <div>
                 <table>
                     <tbody>
@@ -42,12 +58,13 @@ class CompanyOverview extends React.Component{
                     </tbody>
                 </table>
             </div>
-		)
-	}
+        )
+    }
 }
 
-class CompanyRow extends React.Component {
 
+
+class CompanyRow extends React.Component {
 	render() {
 		return (
 			<tr>
@@ -67,6 +84,51 @@ class CompanyRow extends React.Component {
 		)
     }
 }
+
+class DrugsOfCompany extends React.Component {
+	render() {
+		return (
+			<div>
+				<table>
+					<tbody>
+						<tr><td><button onClick={this.props.companyDrugs} name="Return">Return</button></td></tr>
+						<tr><td>{"Drugs relevant to " + this.props.data.drugsOfCompany.name + ":"}</td></tr>
+					</tbody>
+				</table>
+				<table>
+					<tbody>
+						<tr> 
+							<td>#</td>
+							<td>Names</td>
+							<td>Indications</td>
+							<td>Category</td>
+							<td>Firms</td>
+							<td>Trials</td>
+						</tr>
+						{this.props.data.drugsOfCompany.drugs.map((drug, i) => <DrugTableRow key={i} data={drug} id={i+1} />)}
+					</tbody>
+				</table>
+			</div>
+		)
+	}
+}
+
+class DrugTableRow extends React.Component {
+	render() {
+		return (
+			<tr>
+				<td>{this.props.id}</td>
+				<td>{this.props.data.name}</td>
+				<td>{this.props.data.disease}</td>
+				<td>{this.props.data.category}</td>
+				<td>{this.props.data.misc}</td>
+                <td><a href={"https://clinicaltrials.gov/ct2/results?cond=&term=" + this.props.data.name.split(",")[0] + 
+                "&cntry=&state=&city=&dist="}>Link</a></td>
+			</tr>	
+		);
+	}
+}
+
 
 export default CompanyOverview;
 
