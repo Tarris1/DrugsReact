@@ -7,13 +7,13 @@ import DiseaseSearchWindow from './DiseaseSearchWindow.jsx';
 
 let data = require('../database.json');
 let blogs = require('./Data/blogs');
-let EMAdiseases = require('./EMALabels');
-let FDAdiseases = require('./FDALabels');
+//let EMAdiseases = require('./EMALabels'); #Drugs approved by EMA
+//let FDAdiseases = require('./FDALabels'); #Drugs approved by FDA
 let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 let companyData = require('./companyOverview.json');
 let diseaseList = require('./Data/trials/diseaselist.json');
-//let trials = require('./Data/trials/diseaseandtrials.json');
-//let interventions = require('./Data/trials/interventions.json');
+//let trials = require('./Data/trials/diseaseandtrials.json'); //#clinicaltrials.gov trials for each disease
+let interventions = require('./Data/trials/interventions.json'); //#Combination of all interventions for each disease
 var fileSaver = require('file-saver'); 
 
 //let diseaseList = Object.keys(trials);
@@ -73,10 +73,10 @@ class App extends React.Component {
 			diseases: [],//EMAdiseases, 
 			diseaseList: diseaseList,
 			//trials: trials,
-			//interventions: interventions,
+			interventions: interventions,
 			dataToShow: true,
 			blogs: {blogData: blogs, blogClicked: 1, blogList: true},
-			window: {mainPage: "Hide", drugTableWindow: "Show", blogWindow: "Show", diseaseWindow: "Show", databankWindow: "Show", companyWindow: "Show"},
+			window: {mainPage: true, drugTableWindow: false, blogWindow: false, diseaseWindow: false, databankWindow: false, companyWindow: false}, 
 			companyData: companyData,
 			drugsOfCompany: {drugs: "", name: ""},
 		}
@@ -165,19 +165,15 @@ class App extends React.Component {
 		var newState = this.state.window; //Copy of button data
 		var nameOfElement = event.target.name; //Name of element to hide/show
 		var windowsToClose = Object.keys(this.state.window); //All elements that can be hidden/shown
-		if (this.state.window[nameOfElement] == "Show"){
+		if (this.state.window[nameOfElement] == false){
 			for (var n in windowsToClose){
 				var other = windowsToClose[n]
-				if (other != nameOfElement){
-					newState[other] = "Show";
-					document.getElementById(other).style.display = 'none';}
+				if (other != nameOfElement) { newState[other] = false;}
 				}
-			newState[nameOfElement] = "Hide";
-			document.getElementById(nameOfElement).style.display = 'inline';
+			newState[nameOfElement] = true;
 			this.setState({ window: newState});
-		} else if (this.state.window[nameOfElement] == ("Hide")) {
-			newState[nameOfElement] = "Show";
-			document.getElementById(nameOfElement).style.display = 'none';
+		} else if (this.state.window[nameOfElement] == true) {
+			newState[nameOfElement] = false;
 			this.setState({ window: newState});
 		}
 	}
@@ -247,6 +243,7 @@ class App extends React.Component {
 					<button name="blogWindow" id="blogBtn" onClick={this.showElement}>My Blog</button>
 				</div> 
 
+				{this.state.window.mainPage ? (
 				<div id="mainPage">
 					<div id="drugTableSummary">
 						{<DrugTable data={{drugData: this.state.drugData.slice(0,1), header: this.state.header, paragraph: this.state.paragraph, 
@@ -260,31 +257,41 @@ class App extends React.Component {
 						companyDrugs={this.companyDrugs} sortCompany={this.sortCompany}></CompanyOverview>}
 						{/*Drugs of company doesnt work properly here, combine CompanyOverview and DrugsOfCompany!*/}
 					</div>
-				</div>
-
+					<div id="diseaseWindowSummary">
+						{/*<DiseaseSearchWindow data={this.state}></DiseaseSearchWindow>*/}
+					</div>
+				</div>) : (<div></div>)}
+				
+				{this.state.window.drugTableWindow ? (
 				<div id="drugTableWindow">
 					{<DrugTable data={this.state} hideTable={this.hideTable} searchResults={this.searchResults} 
 					changeSaveDataName={this.changeSaveDataName} saveData={this.saveData}></DrugTable>}
-				</div>
+				</div>) : ( <div></div>)}
 
+				{this.state.window.companyWindow ? (
 				<div id="companyWindow">
 					{<CompanyOverview data={this.state} searchCompany={this.searchCompany} 
 					companyDrugs={this.companyDrugs} sortCompany={this.sortCompany}></CompanyOverview>}
-				</div>
+				</div>) : (<div></div>)}
 
+
+				{this.state.window.diseaseWindow ? (
 				<div id="diseaseWindow">
 					{<DiseaseSearchWindow data={this.state}></DiseaseSearchWindow>}
-				</div>
+				</div>) : (<div></div>)}
 
+
+				{this.state.window.databankWindow ? (
 				<div id="databankWindow">
 					<li><button name="drugDataBtn">Drug Data</button></li>
 					<li><button name="companyDataBtn">Company Data</button></li>
 					<li><button name="diseaseDataBtn">Disease Data</button></li>
-				</div>
+				</div>) : (<div></div>)}
 
+				{this.state.window.blogWindow ? (
 				<div id="blogWindow">
 					{<Blog data={this.state.blogs} showBlogText={this.showBlogText} submitComment={this.submitComment}></Blog>}
-				</div>
+				</div>) : (<div></div>)}
 
 				<div id="footer">
 					<table>

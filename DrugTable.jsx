@@ -19,12 +19,12 @@ class DrugTable extends React.Component {
 				<table id="drugTable">
 					<tbody>
 						<tr> 
-							<td>#</td>
-							<td>Names</td>
-							<td>Indications</td>
-							<td>Category</td>
-							<td>Firms</td>
-							<td>Trials</td>
+							<th>#</th>
+							<th>Names</th>
+							<th>Indications</th>
+							<th>Category</th>
+							<th>Firms</th>
+							<th>Trials</th>
 						</tr>
 						{this.props.data.drugData.map((drug, i) => <DrugTableRow key={i} data={drug} />)}
 					</tbody>

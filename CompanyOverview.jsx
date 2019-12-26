@@ -39,18 +39,18 @@ class CompanyTable extends React.Component {
                 <table id="CompanyTable">
                     <tbody>
                         <tr>
-                            <td onClick={() => this.props.sortCompany("id")}>#</td>
-                            <td onClick={() => this.props.sortCompany("name")}>Name</td>
-                            <td onClick={() => this.props.sortCompany("ticker")}>Ticker</td>
-                            <td onClick={() => this.props.sortCompany("exchange")}>Exchange</td>
-                            <td onClick={() => this.props.sortCompany("price")}>Price</td>
-                            <td onClick={() => this.props.sortCompany("shares")}>Shares</td>
-                            <td onClick={() => this.props.sortCompany("marketCap")}>Market Cap.</td>
-                            <td onClick={() => this.props.sortCompany("quarterly")}>Quarterly Revenue</td>
-                            <td>Drugs</td>
-                            <td>Specialization</td>
-                            <td>Press Releases</td>
-                            <td>Headquarters</td> 
+                            <th onClick={() => this.props.sortCompany("id")}>#</th>
+                            <th onClick={() => this.props.sortCompany("name")}>Name</th>
+                            <th onClick={() => this.props.sortCompany("ticker")}>Ticker</th>
+                            <th onClick={() => this.props.sortCompany("exchange")}>Exchange</th>
+                            <th onClick={() => this.props.sortCompany("price")}>Price</th>
+                            <th onClick={() => this.props.sortCompany("shares")}>Shares</th>
+                            <th onClick={() => this.props.sortCompany("marketCap")}>Market Cap.</th>
+                            <th onClick={() => this.props.sortCompany("quarterly")}>Quarterly Revenue</th>
+                            <th>Drugs</th>
+                            <th>Specialization</th>
+                            <th>Press Releases</th>
+                            <th>Headquarters</th> 
                         </tr>
                         
                         {this.props.data.companyData.map((company, j) => <CompanyRow key={j} data={company} 

@@ -1,4 +1,4 @@
-table#drugTable td, table#drugTable tr {  
+table#drugTable tr {  
   background-color: white;
   border: solid thin;
   border-collapse: collapse;
@@ -11,12 +11,8 @@ td {
   border-collapse: collapse;
 }
 
-#mainPage{
-  display: inline;
-}
 
 #drugTableWindow, #blogWindow, #databankWindow, #companyWindow, #diseaseWindow {
-  display: none;
   padding: 10px;
 }
 

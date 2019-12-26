@@ -7,7 +7,7 @@ function listToString(string){
         var newString = ""
         for (var a in string) {
             if (a == 0) {newString = string[a]}
-            else {newString = newString + ", " + string[a]}
+            else if (a <= 10) {newString = newString + ", " + string[a]}
         }
         return newString
     }
@@ -44,14 +44,15 @@ class DiseaseSearchWindow extends React.Component {
     diseaseTrials = event => {
         var diseaseName = event
         this.setState( {diseaseName: diseaseName})
-        console.log(diseaseName)
-        /*var trials = require('./Data/trials/diseaseandtrials.json');
-        if (diseaseName in this.props.data.trials){
+        //console.log(diseaseName)
+        //var trials = require('./Data/trials/diseaseandtrials.json');
+        /*if (diseaseName in this.props.data.trials){
             const trialsOfDisease = trials[diseaseName]
             trials = {}
             const interventionsOfDisease = interventions[diseaseName]
-            this.setState({ trials: trialsOfDisease, interventions: interventionsOfDisease})}
-        if (this.state.showSearch == true) {this.setState({ showSearch: false})}*/
+            this.setState({ trials: trialsOfDisease, interventions: interventionsOfDisease})}*/
+        const interventionsOfDisease = this.props.data.interventions[diseaseName]
+        if (this.state.showSearch == true) {this.setState({ showSearch: false, interventions: interventionsOfDisease})}
     }
     returnToSearch = event => {this.setState({ showSearch: true})}
     
@@ -81,7 +82,7 @@ class TrialsTable extends React.Component {
                 <table>
                     <tbody>
                         <tr><td><button onClick={this.props.returnToSearch}>Return</button></td></tr>
-                        <tr><td>{/*Unique interventions: {listToString(this.props.data.interventions)}*/}</td></tr>
+                        <tr><td>Unique interventions: {listToString(this.props.data.interventions)}</td></tr>
                         <tr><td>Trials for {this.props.data.diseaseName}: </td></tr>
                     </tbody>
                 </table>
@@ -99,7 +100,7 @@ class TrialsTable extends React.Component {
                             <th>Completion Date</th>
                             <th>Study Type</th>
                         </tr>
-                        {this.props.data.trials.map((trial, i) => <Trial data={trial} key={i} id={i+1}/>)}
+                        {/*this.props.data.trials.map((trial, i) => <Trial data={trial} key={i} id={i+1}/>)*/}
                     </tbody>
                 </table>
             </div>
