@@ -64,7 +64,7 @@ class BlogSpecific extends React.Component {
 							onChange={this.changeAuthorArea}/></label></td></tr>
 						<tr><td><textarea placeholder="Write a comment here" type="text" name="commentText" onChange={this.changeTextArea} 
 							value={this.state.commentText}></textarea></td></tr>
-						<tr><td><button value={this.state.commentText + " " + this.state.commentAuthor}
+						<tr><td><button value={this.state.commentText + ";" + this.state.commentAuthor}
 							onClick={this.props.submitComment}>Submit comment</button></td></tr>
 					</tbody>
 				</table>

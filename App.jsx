@@ -170,7 +170,7 @@ class App extends React.Component {
 
 	submitComment = event => {
 		var newDate = new Date;
-		var text = event.target.value.split(" ");
+		var text = event.target.value.split(";");
 		var date = newDate.toString();
 		var comment = {text: text[0], author: text[1], date: date};
 		var newBlogs = this.state.blogs
