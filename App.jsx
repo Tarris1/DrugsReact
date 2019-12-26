@@ -3,6 +3,7 @@ import Blog from './Blog.jsx'; //Import 'Blog' component
 import DrugTable from './DrugTable.jsx'; //Import 'DrugTable component
 import CompanyOverview from './CompanyOverview.jsx';
 import DiseaseSearchWindow from './DiseaseSearchWindow.jsx';
+//import logo from './Data/logo.jpg';
 
 let data = require('../database.json');
 let blogs = require('./Data/blogs');
@@ -199,6 +200,7 @@ class App extends React.Component {
 					<button name="companyWindow" id="companyBtn" onClick={this.showWindow}>Companies</button>
 					{/*<button name="newsWindow" id = "newsBtn">News</button>*/}
 					<button name="blogWindow" id="blogBtn" onClick={this.showWindow}>My Blog</button>
+					<img src={"./Data/logo.jpg"} alt="My logo" />
 				</div> 
 
 				{this.state.window.mainPage ? (
@@ -247,6 +249,7 @@ class App extends React.Component {
 						<tbody>
 							<tr>
 								<td>Contacts: x@email.com</td>
+								
 							</tr>
 						</tbody>
 					</table>

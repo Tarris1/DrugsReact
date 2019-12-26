@@ -11,6 +11,15 @@ td {
   border-collapse: collapse;
 }
 
+img {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  text-align: center;
+  padding: 10px;
+}
 
 #drugTableWindow, #blogWindow, #databankWindow, #companyWindow, #diseaseWindow {
   padding: 10px;
