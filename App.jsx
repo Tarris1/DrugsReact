@@ -2,14 +2,10 @@ import React from 'react';
 import Blog from './Blog.jsx'; //Import 'Blog' component 
 import DrugTable from './DrugTable.jsx'; //Import 'DrugTable component
 import CompanyOverview from './CompanyOverview.jsx';
-import DiseaseTable from './DiseaseTable.jsx';
 import DiseaseSearchWindow from './DiseaseSearchWindow.jsx';
 
 let data = require('../database.json');
 let blogs = require('./Data/blogs');
-//let EMAdiseases = require('./EMALabels'); #Drugs approved by EMA
-//let FDAdiseases = require('./FDALabels'); #Drugs approved by FDA
-let paragraphs = require('../paragraphs_two.json'); //not sure why regular paragraphs.json does not work
 let companyData = require('./companyOverview.json');
 let diseaseList = require('./Data/trials/diseaselist.json');
 //let trials = require('./Data/trials/diseaseandtrials.json'); //#clinicaltrials.gov trials for each disease
@@ -17,7 +13,6 @@ let interventions = require('./Data/trials/interventions.json'); //#Combination 
 var fileSaver = require('file-saver'); 
 
 //let diseaseList = Object.keys(trials);
-//console.log(diseaseList);
 
 function transferToDict(id) {
 	var dictionary = data['drugs'][id];
@@ -62,21 +57,17 @@ class App extends React.Component {
 		super();
 		this.state = { //State is the place where data comes from - make as simple as possible
 			drugData: listOfDrugs,
-			header: 'My Drug Database',
-			paragraph: paragraphs,
 			drugSearch: "",
 			saveName: "",
 			companySearch: "",
 			showCompanies: true,
 			sortOrder: "desc",
 			hideDatabase: "Hide database",
-			diseases: [],//EMAdiseases, 
 			diseaseList: diseaseList,
 			//trials: trials,
 			interventions: interventions,
-			dataToShow: true,
 			blogs: {blogData: blogs, blogClicked: 1, blogList: true},
-			window: {mainPage: true, drugTableWindow: false, blogWindow: false, diseaseWindow: false, databankWindow: false, companyWindow: false}, 
+			window: {mainPage: true, drugTableWindow: false, blogWindow: false, diseaseWindow: false, companyWindow: false}, 
 			companyData: companyData,
 			drugsOfCompany: {drugs: "", name: ""},
 		}
@@ -115,30 +106,6 @@ class App extends React.Component {
 		} else{this.setState({companyData:companyData})}
 	}
 
-	searchDisease = event => {
-		var toFind = (event.target.value).toLowerCase();
-		if (toFind != ""){
-			var diseases
-			this.state.dataToShow ? (diseases = EMAdiseases) : (diseases = FDAdiseases);
-			var newDiseaseList = [];
-			var stringOfData = "";
-			if (this.state.dataToShow == true){
-				for (var k in diseases){
-					stringOfData = (diseases[k]["Therapeutic area"] + diseases[k]["Condition / indication"] + 
-					diseases[k]["Marketing authorisation holder/company name"] + diseases[k]["Medicine name"]).toLowerCase();
-					if (stringOfData.indexOf(toFind) !== -1){newDiseaseList.push(diseases[k])}
-				}}
-			else {
-				for (var k in diseases){
-					stringOfData = (diseases[k].Company + diseases[k]["Active Ingredient(s)"] + diseases[k]["Trade Name"]).toLowerCase();
-					if (stringOfData.indexOf(toFind) !== -1){newDiseaseList.push(diseases[k])}
-				}
-			}	
-			this.setState({ diseases: newDiseaseList});
-		} else if (this.state.dataToShow == true){this.setState({ diseases: EMAdiseases})}
-		else {this.setState({ diseases: FDAdiseases})}
-	}
-
 	searchLabel = event => { this.setState({ diseaseSearch: event.target.value});}
 
 	saveData = event => { //Saves the data with the name determined by this.state.saveName in the label or this.state.search if no saveName exists
@@ -160,8 +127,7 @@ class App extends React.Component {
 		} else {this.setState({ drugData: [], hideDatabase: "Unhide database"})}
 	}
 
-	showElement = event => {
-		//Shows the website parts corresponding to the button clicked and ensures the other is hidden
+	showWindow = event => { //Shows the website parts corresponding to the button clicked and ensures the other is hidden
 		var newState = this.state.window; //Copy of button data
 		var nameOfElement = event.target.name; //Name of element to hide/show
 		var windowsToClose = Object.keys(this.state.window); //All elements that can be hidden/shown
@@ -190,13 +156,6 @@ class App extends React.Component {
 		} else {
 			this.setState({ showCompanies: true})
 		}
-	}
-
-	changeDiseases = event => {
-		var dataToShow = event.target.name;
-		if (dataToShow == "EMAbutton") {this.setState ({ diseases: EMAdiseases, dataToShow: true})}
-		else if (dataToShow == "FDAbutton"){this.setState({ diseases: FDAdiseases, dataToShow: false})}
-		else if (dataToShow == "clearButton"){this.setState({ diseases: []})}
 	}
 	
 	showBlogText = event => {
@@ -234,13 +193,12 @@ class App extends React.Component {
 		return (
 			<div>
 				<div id="siteHeader">
-					<button name="mainPage" id="mainPageBtn" onClick={this.showElement}>Main page</button>
-					<button name="drugTableWindow" id="drugTableBtn" onClick={this.showElement}>Drug Table</button>
-					<button name="diseaseWindow" id="diseaseBtn" onClick = {this.showElement}>Diseases & Indicated Drugs</button>
-					<button name="companyWindow" id="companyBtn" onClick={this.showElement}>Companies</button>
-					<button name="newsWindow" id = "newsBtn">News</button>
-					<button name="databankWindow" id="databankBtn" onClick={this.showElement}>Databank</button>
-					<button name="blogWindow" id="blogBtn" onClick={this.showElement}>My Blog</button>
+					<button name="mainPage" id="mainPageBtn" onClick={this.showWindow}>Main page</button>
+					<button name="drugTableWindow" id="drugTableBtn" onClick={this.showWindow}>Drug Table</button>
+					<button name="diseaseWindow" id="diseaseBtn" onClick = {this.showWindow}>Diseases & Trials</button>
+					<button name="companyWindow" id="companyBtn" onClick={this.showWindow}>Companies</button>
+					{/*<button name="newsWindow" id = "newsBtn">News</button>*/}
+					<button name="blogWindow" id="blogBtn" onClick={this.showWindow}>My Blog</button>
 				</div> 
 
 				{this.state.window.mainPage ? (
@@ -255,7 +213,6 @@ class App extends React.Component {
 						{<CompanyOverview data={{ companyData: this.state.companyData.slice(0,1), companysearch: this.state.companySearch, 
 						drugsOfCompany: this.state.drugsOfCompany, showCompanies: this.state.showCompanies}} searchCompany={this.searchCompany} 
 						companyDrugs={this.companyDrugs} sortCompany={this.sortCompany}></CompanyOverview>}
-						{/*Drugs of company doesnt work properly here, combine CompanyOverview and DrugsOfCompany!*/}
 					</div>
 					<div id="diseaseWindowSummary">
 						{/*<DiseaseSearchWindow data={this.state}></DiseaseSearchWindow>*/}
@@ -278,14 +235,6 @@ class App extends React.Component {
 				{this.state.window.diseaseWindow ? (
 				<div id="diseaseWindow">
 					{<DiseaseSearchWindow data={this.state}></DiseaseSearchWindow>}
-				</div>) : (<div></div>)}
-
-
-				{this.state.window.databankWindow ? (
-				<div id="databankWindow">
-					<li><button name="drugDataBtn">Drug Data</button></li>
-					<li><button name="companyDataBtn">Company Data</button></li>
-					<li><button name="diseaseDataBtn">Disease Data</button></li>
 				</div>) : (<div></div>)}
 
 				{this.state.window.blogWindow ? (
