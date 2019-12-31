@@ -25,6 +25,7 @@ class DrugTable extends React.Component {
 							<th>Category</th>
 							<th>Firms</th>
 							<th>Trials</th>
+							<th>Clinical</th>
 						</tr>
 						{this.props.data.drugData.map((drug, i) => <DrugTableRow key={i} data={drug} />)}
 					</tbody>
@@ -46,6 +47,7 @@ class DrugTableRow extends React.Component {
 				<td>{this.props.data.category}</td>
 				<td>{this.props.data.firm}</td>
 				<td><a href={"https://clinicaltrials.gov/ct2/results?cond=&term=" + this.props.data.names.split(",")[0] + "&cntry=&state=&city=&dist="}>Link</a></td>
+				<td>{this.props.data.clinical}</td>
 			</tr>	
 		);
 	}

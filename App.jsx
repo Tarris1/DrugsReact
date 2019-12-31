@@ -22,7 +22,8 @@ function transferToDict(id) {
 		names: dictionary['name'],
 		category: dictionary['category'],
 		firm: dictionary['misc'],
-		indications: dictionary['disease']
+		indications: dictionary['disease'],
+		clinical: dictionary['clinical']
 	}
 }
 

@@ -51,6 +51,7 @@ class CompanyTable extends React.Component {
                             <th>Specialization</th>
                             <th>Press Releases</th>
                             <th>Headquarters</th> 
+                            <th onClick={() => this.props.sortCompany("year")}>Year</th>
                         </tr>
                         
                         {this.props.data.companyData.map((company, j) => <CompanyRow key={j} data={company} 
@@ -80,6 +81,7 @@ class CompanyRow extends React.Component {
 				<td>{this.props.data.specialization}</td>
 				<td><a href={this.props.data.pressReleases}>Link</a></td>
 				<td>{this.props.data.headquarters}</td>
+                <td>{this.props.data.year}</td>
 			</tr>
 		)
     }
