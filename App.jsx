@@ -3,6 +3,7 @@ import Blog from './Blog.jsx'; //Import 'Blog' component
 import DrugTable from './DrugTable.jsx'; //Import 'DrugTable component
 import CompanyOverview from './CompanyOverview.jsx';
 import DiseaseSearchWindow from './DiseaseSearchWindow.jsx';
+import News from './News.jsx';
 //import logo from './Data/logo.jpg';
 
 let data = require('../database.json');
@@ -69,7 +70,7 @@ class App extends React.Component {
 			//trials: trials,
 			interventions: interventions,
 			blogs: {blogData: blogs, blogClicked: 1, blogList: true},
-			window: {mainPage: true, drugTableWindow: false, blogWindow: false, diseaseWindow: false, companyWindow: false}, 
+			window: {mainPage: true, drugTableWindow: false, blogWindow: false, diseaseWindow: false, companyWindow: false, newsWindow: false}, 
 			companyData: companyData,
 			drugsOfCompany: {drugs: "", name: ""},
 		}
@@ -199,7 +200,7 @@ class App extends React.Component {
 					<button name="drugTableWindow" id="drugTableBtn" onClick={this.showWindow}>Drug Table</button>
 					<button name="diseaseWindow" id="diseaseBtn" onClick = {this.showWindow}>Diseases & Trials</button>
 					<button name="companyWindow" id="companyBtn" onClick={this.showWindow}>Companies</button>
-					{/*<button name="newsWindow" id = "newsBtn">News</button>*/}
+					<button name="newsWindow" id = "newsBtn" onClick={this.showWindow}>News</button>
 					<button name="blogWindow" id="blogBtn" onClick={this.showWindow}>My Blog</button>
 					<img src={"./Data/logo.jpg"} alt="My logo" />
 				</div> 
@@ -239,6 +240,11 @@ class App extends React.Component {
 				<div id="diseaseWindow">
 					{<DiseaseSearchWindow data={this.state}></DiseaseSearchWindow>}
 				</div>) : (<div></div>)}
+
+				{this.state.window.newsWindow ? (
+					<div id="newsWindow">
+						{<News data={this.state}></News>}
+				</div>): (<div></div>)}
 
 				{this.state.window.blogWindow ? (
 				<div id="blogWindow">
