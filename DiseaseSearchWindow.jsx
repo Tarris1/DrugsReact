@@ -1,13 +1,19 @@
 import React from 'react';
 //let diseaseList = require('./Data/trials/diseaselist.json');
 //let trials = require('./Data/trials/diseaseandtrials.json');
+//https://dev.to/saulojoab/how-to-get-data-from-an-mysql-database-in-react-native-53a4
+//https://www.sqlservercentral.com/articles/building-dynamic-react-apps-with-sql-server-data-2
+//https://www.codeproject.com/Articles/3148328/Building-Dynamic-React-Apps-with-Database-Data
+//https://www.cdata.com/kb/articles/apiserver-react.rst
+//https://www.sqlitetutorial.net/
+
 
 function listToString(string){
     if (typeof string == "object"){
         var newString = ""
         for (var a in string) {
             if (a == 0) {newString = string[a]}
-            else if (a <= 10) {newString = newString + ", " + string[a]}
+            else if (a <= 20) {newString = newString + ", " + string[a]}
         }
         return newString
     }
@@ -28,6 +34,7 @@ class DiseaseSearchWindow extends React.Component {
 	}
     changeSearchArea = event => {
         var searchInput = event.target.value.toLowerCase();
+        const resultLimit = 40;
         const allDiseases = this.props.data.diseaseList;
         this.setState({ search: searchInput})
         var searchResults = []
@@ -38,7 +45,7 @@ class DiseaseSearchWindow extends React.Component {
                 searchResults.push(diseaseName)
             }
         }
-        if (searchResults.length<25){this.setState( { searchResults: searchResults})}   
+        if (searchResults.length < resultLimit){this.setState( { searchResults: searchResults})}   
     }
 
     diseaseTrials = event => {

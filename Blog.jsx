@@ -53,7 +53,7 @@ class BlogSpecific extends React.Component {
 						<tr id="blogTitle"><td>{"#" + this.props.data.id + ": " + this.props.data.title}</td></tr>
 						<tr><td id="blogText" dangerouslySetInnerHTML={ { __html: this.props.data.text } }></td></tr>
 						{/*<tr><td>{"Author: " + this.props.data.author}</td></tr>*/}
-						<tr><td>{"Date: " + this.props.data.date}</td></tr>
+						<tr><td>{"Date of creation: " + this.props.data.date}</td></tr>
 						<tr><td>{"Last edited: " + this.props.data.lastEdited}</td></tr>
 					</tbody>
 				</table>
