@@ -1,5 +1,5 @@
 import React from 'react';
-
+//let blog = require ('./Data/blogs/daridorexant.html')
 //Scientific journals: see journal.csv in Desktop/Scraping
 //https://www.scimagojr.com/journalrank.php?category=2701
 //News sources: See drugs.xlsx "Resources"
@@ -10,7 +10,7 @@ class News extends React.Component {
     constructor() {
 		super();
 		this.state = { //State is the place where data comes from - make as simple as possible
-            window: {LiteratureBtn: false, GeneralNewsBtn: true, RegulatoryBtn: false},
+            window: {LiteratureBtn: true, GeneralNewsBtn: false, RegulatoryBtn: false},
         }
     };
     render() {

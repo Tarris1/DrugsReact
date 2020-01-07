@@ -254,9 +254,10 @@ class App extends React.Component {
 				<div id="footer">
 					<table>
 						<tbody>
-							<tr>
+							<tr id="contacts">
 								<td>Contacts: x@email.com</td>
-								
+								<td><a href="https://www.linkedin.com/in/tarjei-sandsnes-5074b813a/">Linkedin</a></td>
+								<td><a href="https://github.com/Tarris1">Github</a></td>
 							</tr>
 						</tbody>
 					</table>

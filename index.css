@@ -1,14 +1,12 @@
-table#drugTable tr {  
-  background-color: white;
-  border: solid thin;
-  border-collapse: collapse;
-}
 
 table{
   padding: 8px;
 }
+
 td {
   border-collapse: collapse;
+  font-family: "Arial";
+  font-size: 14px;
 }
 
 img {
@@ -31,28 +29,41 @@ img {
   font-size: 15px;
 }
 
-#blogWindow td#blogText table {
-  border-collapse: collapse;
-}
-#blogWindow td#blogText table tr, #blogWindow td#blogText table td {
+#blogWindow td#blogText table tr, #blogWindow td#blogText table td, #blogWindow td#blogText table {
   border: solid thin;
   padding: 2px; 
+  border-collapse: collapse;
 }
 
+#drugTableWindow table#drugTable tr, #drugTableWindow table#drugTable td, #drugTableWindow table#drugTable th, #drugTableWindow table#drugTable,
+#companyWindow table#CompanyTable tr, #companyWindow table#CompanyTable td, #companyWindow table#CompanyTable th, #companyWindow table#CompanyTable
+{
+  border:solid thin;
+  padding: 2px;
+  border-collapse: collapse;
+}
+
+
 button#mainPageBtn, button#drugTableBtn, button#blogBtn, button#companyBtn, button#diseaseBtn, button#databankBtn, button#newsBtn {
-  background-color: #08089b;
-  border: 1px solid;
-  color: white;
+  background-color: #ffffff;
+  border: 1px solid white;
+  color: black;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 12px;
+  font-size: 15px;
+  font-family: "Arial";
+  font-weight: bold;
 }
 
+button#mainPageBtn:hover, button#drugTableBtn:hover,
+ button#blogBtn:hover, button#companyBtn:hover, button#diseaseBtn:hover, button#databankBtn:hover, button#newsBtn:hover {
+  border: 1px solid rgb(87, 1, 1);
+  color: rgb(87, 0, 0);
+}
 
 div#siteHeader, div#footer{
-  background-color: white;
-  border: 1px solid rgb(121, 121, 121);
-  padding: 2px;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgb(121, 121, 121);
 }

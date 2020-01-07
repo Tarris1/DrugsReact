@@ -5,7 +5,7 @@ function numberFormatting(number, digits = digits) {
     if (number.length!=0){ //Checks if its actually a number
         var newNumber = new Intl.NumberFormat('ja-JP', {maximumFractionDigits: digits }).format(number);
         return (newNumber)}
-    else{return number};
+    else { return number};
 }
 
 class CompanyOverview extends React.Component {
@@ -15,9 +15,7 @@ class CompanyOverview extends React.Component {
                {this.props.data.showCompanies ?
                  (<CompanyTable data={this.props.data} searchCompany={this.props.searchCompany} 
                     companyDrugs={this.props.companyDrugs} sortCompany={this.props.sortCompany}></CompanyTable>)
-                :
-                (<DrugsOfCompany data={this.props.data} companyDrugs={this.props.companyDrugs}></DrugsOfCompany>)
-                
+                : (<DrugsOfCompany data={this.props.data} companyDrugs={this.props.companyDrugs}></DrugsOfCompany>)
                 }
             </div>
 		)
