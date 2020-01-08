@@ -6,11 +6,11 @@ class Blog extends React.Component {
 			<div>
 				<h1>Pharmaceuticals Weekly & Random Scribbles</h1>
 				{this.props.data.blogList ? 
-				(this.props.data.blogData.map((blog, blogNumber) => 
-					<BlogEntry id="blogEntry" key={blogNumber} data={blog} showBlogText={this.props.showBlogText}/>))
+					(this.props.data.blogData.map((blog, blogNumber) => 
+						<BlogEntry id="blogEntry" key={blogNumber} data={blog} showBlogText={this.props.showBlogText}/>))
 				:
-				(<BlogSpecific data={this.props.data.blogData[this.props.data.blogClicked]} submitComment={this.props.submitComment}
-				showBlogText={this.props.showBlogText}/>)
+					(<BlogSpecific data={this.props.data.blogData[this.props.data.blogClicked]} submitComment={this.props.submitComment}
+					showBlogText={this.props.showBlogText}/>)
 				}
 			</div>
 		)
