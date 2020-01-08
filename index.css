@@ -9,7 +9,7 @@ td {
   font-size: 14px;
 }
 
-img {
+img#siteLogo {
   width: 50px;
   height: 50px;
   position: absolute;
@@ -19,9 +19,16 @@ img {
   padding: 10px;
 }
 
-#drugTableWindow, #blogWindow, #databankWindow, #companyWindow, #diseaseWindow {
-  padding: 10px;
+#blogWindow img {
+  width: 200px;
+  height: 200px;
 }
+
+#mainPage img {
+  width: 100px;
+  height: 100px;
+}
+
 
 #blogWindow #blogList button, #blogWindow td{
   border: none;
@@ -31,7 +38,6 @@ img {
 
 #blogWindow td#blogText table tr, #blogWindow td#blogText table td, #blogWindow td#blogText table {
   border: solid thin;
-  padding: 2px; 
   border-collapse: collapse;
 }
 
@@ -42,7 +48,6 @@ img {
   padding: 2px;
   border-collapse: collapse;
 }
-
 
 button#mainPageBtn, button#drugTableBtn, button#blogBtn, button#companyBtn, button#diseaseBtn, button#databankBtn, button#newsBtn {
   background-color: #ffffff;
@@ -58,8 +63,9 @@ button#mainPageBtn, button#drugTableBtn, button#blogBtn, button#companyBtn, butt
 }
 
 button#mainPageBtn:hover, button#drugTableBtn:hover,
- button#blogBtn:hover, button#companyBtn:hover, button#diseaseBtn:hover, button#databankBtn:hover, button#newsBtn:hover {
-  border: 1px solid rgb(87, 1, 1);
+ button#blogBtn:hover, button#companyBtn:hover, button#diseaseBtn:hover, button#databankBtn:hover, button#newsBtn:hover,
+ #blogWindow table#blogList button:hover {
+  border: 4px solid rgb(87, 1, 1);
   color: rgb(87, 0, 0);
 }
 

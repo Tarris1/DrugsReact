@@ -4,11 +4,10 @@ class Blog extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>Welcome to my blog</h1>
-				<p>In this blog I give overviews and analysis on the various drugs and companies that I encounter in my studies.</p>
+				<h1>Pharmaceuticals Weekly & Random Scribbles</h1>
 				{this.props.data.blogList ? 
 				(this.props.data.blogData.map((blog, blogNumber) => 
-					<BlogEntry key={blogNumber} data={blog} showBlogText={this.props.showBlogText}/>))
+					<BlogEntry id="blogEntry" key={blogNumber} data={blog} showBlogText={this.props.showBlogText}/>))
 				:
 				(<BlogSpecific data={this.props.data.blogData[this.props.data.blogClicked]} submitComment={this.props.submitComment}
 				showBlogText={this.props.showBlogText}/>)
@@ -24,10 +23,11 @@ class BlogEntry extends React.Component {
 		return (
 			<table id="blogList">
 				<tbody>
-					<tr id="blogTitle"><td><button name={this.props.data.id} onClick={this.props.showBlogText}>
-						{"#" + this.props.data.id + ": " + this.props.data.title}</button></td></tr>
-					<tr><td>{this.props.submitComment}</td></tr>
-					<tr><td>{"Date: " + this.props.data.date}</td></tr>
+					<tr id="blogTitle">
+						<td><button name={this.props.data.id} onClick={this.props.showBlogText}>
+						{"#" + this.props.data.id + ": " + this.props.data.title}</button></td>
+						<td>{"(" + this.props.data.date + ")"}</td>
+					</tr>
 				</tbody>
 			</table>
 		);

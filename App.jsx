@@ -4,7 +4,6 @@ import DrugTable from './DrugTable.jsx'; //Import 'DrugTable component
 import CompanyOverview from './CompanyOverview.jsx';
 import DiseaseSearchWindow from './DiseaseSearchWindow.jsx';
 import News from './News.jsx';
-//import logo from './Data/logo.jpg';
 
 let data = require('../database.json');
 let blogs = require('./Data/blogs');
@@ -123,12 +122,6 @@ class App extends React.Component {
 	}
 	
 	changeSaveDataName = event => {this.setState({ saveName: event.target.value})} //Changes the save data label
-	
-	hideTable = event => { //Hides the table
-		if(this.state.hideDatabase == "Unhide database") {
-			this.setState({ drugData: listOfDrugs, hideDatabase: "Hide database"})
-		} else {this.setState({ drugData: [], hideDatabase: "Unhide database"})}
-	}
 
 	showWindow = event => { //Shows the website parts corresponding to the button clicked and ensures the other is hidden
 		var newState = this.state.window; //Copy of button data
@@ -196,36 +189,31 @@ class App extends React.Component {
 		return (
 			<div>
 				<div id="siteHeader">
-					<button name="mainPage" id="mainPageBtn" onClick={this.showWindow}>Main page</button>
-					<button name="drugTableWindow" id="drugTableBtn" onClick={this.showWindow}>Drug Table</button>
+					<button name="mainPage" id="mainPageBtn" onClick={this.showWindow}>Main</button>
+					<button name="drugTableWindow" id="drugTableBtn" onClick={this.showWindow}>Drugs</button>
 					<button name="diseaseWindow" id="diseaseBtn" onClick = {this.showWindow}>Diseases & Trials</button>
 					<button name="companyWindow" id="companyBtn" onClick={this.showWindow}>Companies</button>
 					<button name="newsWindow" id = "newsBtn" onClick={this.showWindow}>News</button>
 					<button name="blogWindow" id="blogBtn" onClick={this.showWindow}>My Blog</button>
-					<img src={"./Data/logo.jpg"} alt="My logo" />
+					<img id="siteLogo" src={"./Data/logo.jpg"} alt="My logo" />
 				</div> 
 
 				{this.state.window.mainPage ? (
 				<div id="mainPage">
-					<div id="drugTableSummary">
-						{<DrugTable data={{drugData: this.state.drugData.slice(0,1), header: this.state.header, paragraph: this.state.paragraph, 
-						drugSearch: this.state.drugSearch, saveName: this.state.saveName, hideDatabase: this.state.hideDatabase}} 
-							hideTable={this.hideTable} searchResults={this.searchResults} 
-						changeSaveDataName={this.changeSaveDataName} saveData={this.saveData}></DrugTable>}
-					</div>
-					<div id="companyTableSummary">
-						{<CompanyOverview data={{ companyData: this.state.companyData.slice(0,1), companysearch: this.state.companySearch, 
-						drugsOfCompany: this.state.drugsOfCompany, showCompanies: this.state.showCompanies}} searchCompany={this.searchCompany} 
-						companyDrugs={this.companyDrugs} sortCompany={this.sortCompany}></CompanyOverview>}
-					</div>
-					<div id="diseaseWindowSummary">
-						{/*<DiseaseSearchWindow data={this.state}></DiseaseSearchWindow>*/}
-					</div>
+					<table id="mainTable">
+						<tbody>
+							<tr>
+								<td><img src={"./Data/logos/PFE.png"}/></td>
+								<td><img src={"./Data/logos/JNJ.png"}/></td>
+								<td><img src={"./Data/logos/ROG.png"}/></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>) : (<div></div>)}
 				
 				{this.state.window.drugTableWindow ? (
 				<div id="drugTableWindow">
-					{<DrugTable data={this.state} hideTable={this.hideTable} searchResults={this.searchResults} 
+					{<DrugTable data={this.state}  searchResults={this.searchResults} 
 					changeSaveDataName={this.changeSaveDataName} saveData={this.saveData}></DrugTable>}
 				</div>) : ( <div></div>)}
 

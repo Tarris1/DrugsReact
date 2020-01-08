@@ -4,15 +4,12 @@ class DrugTable extends React.Component {
 	render() {
 		return (
 			<div>
-				{/*<h1>{this.props.data.header}</h1>
-				<p>{this.props.data.paragraph.introduction}</p>*/}
 				<table>
 					<tbody>
 						<tr>
 							<td><label>Search: <input type="text" name="search" value={this.props.data.searchDrugs} onChange={this.props.searchResults}/></label></td>
 							<td><label>Save data as: <input type="text" name="saveData" value={this.props.data.saveName} onChange={this.props.changeSaveDataName}/></label></td>
 							<td><button onClick={this.props.saveData}>Click to save</button></td>
-							<td><button onClick={this.props.hideTable}>{this.props.data.hideDatabase}</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -35,7 +32,6 @@ class DrugTable extends React.Component {
 	}
 
 }
-
 
 class DrugTableRow extends React.Component {
 	render() {
