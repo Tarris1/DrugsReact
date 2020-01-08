@@ -157,7 +157,7 @@ class App extends React.Component {
 	showBlogText = event => {
 		const clicked = event.target.name
 		var blogsCopy = this.state.blogs
-		blogsCopy["blogClicked"] = clicked
+		blogsCopy["blogClicked"] = clicked-1
 		if (blogsCopy.blogList == false) { blogsCopy.blogList = true}
 		else { blogsCopy.blogList = false}
 		this.setState({ blogs: blogsCopy})

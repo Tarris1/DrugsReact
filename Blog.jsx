@@ -25,7 +25,7 @@ class BlogEntry extends React.Component {
 				<tbody>
 					<tr id="blogTitle">
 						<td><button name={this.props.data.id} onClick={this.props.showBlogText}>
-						{"#" + this.props.data.id + ": " + this.props.data.title}</button></td>
+						{this.props.data.title}</button></td>
 						<td>{"(" + this.props.data.date + ")"}</td>
 					</tr>
 				</tbody>
@@ -50,7 +50,7 @@ class BlogSpecific extends React.Component {
 				<table>
 					<tbody>
 						<tr><td><button name="return" onClick={this.props.showBlogText}>Return to blog list</button></td></tr>
-						<tr id="blogTitle"><td>{"#" + this.props.data.id + ": " + this.props.data.title}</td></tr>
+						<tr id="blogTitle"><td>{this.props.data.title}</td></tr>
 						<tr><td id="blogText" dangerouslySetInnerHTML={ { __html: this.props.data.text } }></td></tr>
 						{/*<tr><td>{"Author: " + this.props.data.author}</td></tr>*/}
 						<tr><td>{"Date of creation: " + this.props.data.date}</td></tr>
