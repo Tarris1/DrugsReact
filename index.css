@@ -73,3 +73,7 @@ div#siteHeader, div#footer{
   background-color: rgb(255, 255, 255);
   border: 2px solid rgb(121, 121, 121);
 }
+
+#drugTableWindow, #blogWindow, #databankWindow, #companyWindow, #diseaseWindow {
+  padding: 10px;
+}
